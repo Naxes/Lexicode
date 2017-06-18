@@ -1,5 +1,5 @@
 <?php
-    require 'partials/db.php';
+    require 'includes/db.php';
     session_start();
     
     $active_page = "home";
@@ -19,19 +19,19 @@
         <link href="https://fonts.googleapis.com/css?family=Miriam+Libre|Source+Sans+Pro:700|Open+Sans:300" rel="stylesheet">
         
         <!-- Style -->
-        <link rel="stylesheet" href="css/style.css"/>
+        <link rel="stylesheet" href="css/output.css"/>
     </head>
     <body>
-        <div class="spacer-lg_btm"></div>
+        <div class="vertical-lg"></div>
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <?php include 'partials/navigation.php'; ?>
+                    <?php include 'includes/navigation.php'; ?>
                 </div>
 
                 <div class="col-md-9">
-                    <span class="font-md_grey source_sans_pro">HOME</span>
-                    <h3 class="font-white miriam_libre">Latest</h3>
+                    <span class="font-grey_light font-header">HOME</span>
+                    <h3 class="font-white font-subheader">Latest</h3>
                     <div class="divider-btm"></div>
                 </div>
             </div>

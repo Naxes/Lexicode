@@ -1,5 +1,5 @@
 <?php
-    require 'partials/db.php';
+    require 'includes/db.php';
     session_start();
     
     $active_page = "contact";
@@ -26,7 +26,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    <?php include 'partials/navigation.php'; ?>
+                    <?php include 'includes/navigation.php'; ?>
                 </div>
 
                 <div class="col-md-9">

@@ -1,5 +1,5 @@
 <?php 
-    require '../partials/db.php';
+    require '../includes/db.php';
     session_start();
 
     $active_page = "login";
@@ -54,7 +54,7 @@
         <link href="https://fonts.googleapis.com/css?family=Miriam+Libre|Source+Sans+Pro:700|Open+Sans:300" rel="stylesheet">
         
         <!-- Style -->
-        <link rel="stylesheet" href="../css/style.css"/>
+        <link rel="stylesheet" href="../css/output.css"/>
     </head>
     <body>
         <?php 
@@ -62,19 +62,19 @@
                 header('location: ../index.php');
                 exit;
             }else {?>
-                <div class="spacer-lg_btm"></div>
+                <div class="vertical-lg"></div>
                 <div class="container">
                     <div class="row">
                         <div class="col-md-3">
-                            <?php include '../partials/navigation.php'?>
+                            <?php include '../includes/navigation.php'?>
                         </div>
                         
                         <div class="col-md-9">
-                            <span class="font-md_grey source_sans_pro">LOGIN</span>
-                            <h3 class="font-white miriam_libre">Access an Account</h3>
+                            <span class="font-grey_light font-header">LOGIN</span>
+                            <h3 class="font-white font-subheader">Access an Account</h3>
                             <div class="divider-btm"></div>
                             
-                            <div class="spacer-sm_btm"></div>
+                            <div class="vertical-sm"></div>
                             
                             <!-- Login form -->
                             <div class="container">
@@ -85,7 +85,7 @@
                                             <div class="container">
                                                 <div class="form-group row">
                                                     <div class="col-xs-2">
-                                                        <label class="font-sm_grey" for="email">Email:</label>
+                                                        <label class="font-white" for="email">Email:</label>
                                                         <input type="email" class="form-control" name="email" autocomplete="off" required />
                                                     </div>
                                                 </div>
@@ -95,7 +95,7 @@
                                             <div class="container">
                                                 <div class="form-group row">
                                                     <div class="col-xs-2">
-                                                        <label class="font-sm_grey" for="password1">Password:</label>
+                                                        <label class="font-white" for="password1">Password:</label>
                                                         <input type="password" class="form-control" name="password1" autocomplete="off" required />
                                                     </div>
                                                 </div>
@@ -107,7 +107,7 @@
                                     <!-- Register link -->
                                     <div class="col-md-6">
                                         <h3 class="font-white">Not a Member?</h3>
-                                        <span class="font-sm_grey">Why not <a href="register.php" style="text-decoration: none;">register</a> an account?</span>
+                                        <span class="font-white">Why not <a href="register.php" style="text-decoration: none;">register</a> an account?</span>
                                     </div>
                                 </div>
                             </div>
