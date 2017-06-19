@@ -7,8 +7,9 @@
     // Login
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         if (isset($_POST['login'])){
-            // Escape email to protect against SQL Injection
+            // Escape string to protect against SQL Injection
             $email = $mysqli->escape_string($_POST['email']);
+            $password = $mysqli->escape_string($_POST['password1']);
             $result = $mysqli->query("SELECT * FROM users WHERE email = '$email'");
             
             // Check if user exists
@@ -21,6 +22,9 @@
                     // Session variables
                     $_SESSION['email'] = $user['email'];
                     $_SESSION['username'] = $user['username'];
+                    
+                    //Unhashed password (for details.php)
+                    $_SESSION['password'] = $password;
                     
                     // User is logged in
                     $_SESSION['loggedin'] = true;
@@ -72,7 +76,6 @@
                         <div class="col-md-9">
                             <span class="font-grey_light font-header">LOGIN</span>
                             <h3 class="font-white font-subheader">Access an Account</h3>
-                            <div class="divider-btm"></div>
                             
                             <div class="vertical-sm"></div>
                             
@@ -117,11 +120,13 @@
                 <?php
                     // Alert if login fails
                     if (isset($_SESSION['message'])){?>
-                        <div class="alert alert-danger" style="position: absolute; right: 0; bottom: 0; margin: 0 10px 10px 0;">
-                            <?php 
-                                echo $_SESSION['message']; 
-                                unset($_SESSION['message']);
-                            ?>
+                        <div class="error-message">
+                            <div class="message-content">
+                                <?php 
+                                    echo $_SESSION['message']; 
+                                    unset($_SESSION['message']);
+                                ?>
+                            </div>
                         </div> 
                     <?php }else { // Display nothing
                      

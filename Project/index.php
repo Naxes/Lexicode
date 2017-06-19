@@ -12,6 +12,9 @@
         <!-- Bootstrap -->
         <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css"/>
         
+        <!-- Prism syntax highlighter CSS -->
+        <link rel="stylesheet" href="../../node_modules/prismjs/themes/prism-okaidia.css"/>
+        
         <!-- Font Awesome (CDN) -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
         
@@ -31,23 +34,38 @@
 
                 <div class="col-md-9">
                     <span class="font-grey_light font-header">HOME</span>
-                    <h3 class="font-white font-subheader">Latest</h3>
-                    <div class="divider-btm"></div>
+                    <h3 class="font-white font-subheader">Home Page</h3>
+                    
+                    <div class="vertical-md"></div>
+                    
+                    <h1 class="font-white font-header">Popular</h1>
+                    
+                    <div class="vertical-sm"></div>
+                    
+                    <div class="content-blackbox">
+                        <h2 class="font-blue font-content text-center">No Submissions.</h2>
+                    </div>
                 </div>
             </div>
         </div>
         <?php
-            // Alert if login fails
+            // Alert if login succeeds
             if (isset($_SESSION['message'])){?>
-                <div class="alert alert-success" style="position: absolute; right: 0; bottom: 0; margin: 0 10px 10px 0;">
-                    <?php 
-                        echo $_SESSION['message']; 
-                        unset($_SESSION['message']);
-                    ?>
+                <div class="success-message">
+                    <div class="message-content">
+                        <?php 
+                            echo $_SESSION['message']; 
+                            unset($_SESSION['message']);
+                        ?>
+                    </div>
                 </div> 
             <?php }else { // Display nothing
              
             }
         ?>
+        <!-- Prism syntax highlighter JS -->
+        <script src="../../node_modules/prismjs/prism.js"></script>
+        <script src="../../node_modules/prismjs/components/prism-php.js"></script>
+        <script src="../../node_modules/prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.js"></script>
     </body>
 </html>

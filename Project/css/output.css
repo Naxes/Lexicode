@@ -35,7 +35,7 @@ body {
 
 ::selection {
   color: #FFFFFF;
-  background: #00A388; }
+  background: #00535E; }
 
 /*
    _____      _                
@@ -72,7 +72,7 @@ body {
   color: #4D5464; }
 
 .font-green {
-  color: #00A388; }
+  color: #00535E; }
 
 .font-green_dark {
   color: #003840; }
@@ -134,6 +134,48 @@ body {
   margin: 0 10px 0 10px; }
 
 /*
+  __  __                                     
+ |  \/  |                                    
+ | \  / | ___  ___ ___  __ _  __ _  ___  ___ 
+ | |\/| |/ _ \/ __/ __|/ _` |/ _` |/ _ \/ __|
+ | |  | |  __/\__ \__ \ (_| | (_| |  __/\__ \
+ |_|  |_|\___||___/___/\__,_|\__, |\___||___/
+                              __/ |          
+                             |___/           
+*/
+.message, .success-message, .error-message, .warning-message {
+  width: 20%;
+  display: block;
+  overflow: auto;
+  color: #FFFFFF;
+  border-radius: 5px;
+  font-family: "Open Sans", sans-serif;
+  animation: message-fade 2s linear forwards;
+  animation-delay: 1.5s;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 0 10px 10px 0; }
+
+.message-content {
+  padding: 5px;
+  text-align: center; }
+
+.success-message {
+  background-color: #00535E; }
+
+.error-message {
+  background-color: #E74C3C; }
+
+.warning-message {
+  background-color: #FFD34E; }
+
+@keyframes message-fade {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
+/*
            _                 _     _____                 
      /\   | |               | |   |  __ \                
     /  \  | |__   ___  _   _| |_  | |__) |_ _  __ _  ___ 
@@ -150,7 +192,7 @@ div .info-box {
   opacity: 0;
   animation: zipup 1s ease-in forwards;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-  background-color: #00A388; }
+  background-color: #00535E; }
 div .info-box.first {
   animation-delay: 0s; }
 div .info-box.second {
@@ -180,7 +222,10 @@ div .info-box.third {
   to {
     opacity: 1;
     top: 0; } }
-#about_blackbox {
+.content-blackbox {
+  display: block;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: 10px;
   margin: 0 0 50px 0;
   border-radius: 10px;
@@ -189,7 +234,7 @@ div .info-box.third {
 
 .console-window {
   width: 100%;
-  height: 200px;
+  height: 205px;
   border-radius: 5px;
   background-color: #2A2C2B; }
   .console-window .top-bar {
@@ -203,15 +248,18 @@ div .info-box.third {
     .console-window .top-bar span:nth-child(1) {
       left: 20px;
       top: 10px;
-      padding: 5px; }
+      padding: 5px;
+      color: #E74C3C; }
     .console-window .top-bar span:nth-child(2) {
       left: 30px;
       top: 10px;
-      padding: 5px; }
+      padding: 5px;
+      color: #FFD34E; }
     .console-window .top-bar span:nth-child(3) {
       left: 40px;
       top: 10px;
-      padding: 5px; }
+      padding: 5px;
+      color: #4D5464; }
   .console-window .console-numbers {
     width: 10%;
     height: 80%;
@@ -219,10 +267,56 @@ div .info-box.third {
     border-radius: 0 0 0 5px;
     background-color: #2F3837; }
   .console-window .console-content {
+    overflow: auto;
     width: 90%;
     height: 80%;
     float: left;
     font-size: 12px; }
+
+/*
+  _____            __ _ _        _____                 
+ |  __ \          / _(_) |      |  __ \                
+ | |__) | __ ___ | |_ _| | ___  | |__) |_ _  __ _  ___ 
+ |  ___/ '__/ _ \|  _| | |/ _ \ |  ___/ _` |/ _` |/ _ \
+ | |   | | | (_) | | | | |  __/ | |  | (_| | (_| |  __/
+ |_|   |_|  \___/|_| |_|_|\___| |_|   \__,_|\__, |\___|
+                                             __/ |     
+                                            |___/      
+*/
+.avatar {
+  width: 100%;
+  height: 220px;
+  font-size: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  color: #374140;
+  background-color: #CDD0D8; }
+
+div {
+  position: relative; }
+  div .details {
+    width: 100%;
+    height: auto; }
+    div .details h2 {
+      color: #FFFFFF;
+      font-family: "Source Sans Pro", sans-serif; }
+      div .details h2 a {
+        color: #4D5464;
+        text-decoration: none;
+        position: absolute;
+        right: 0; }
+        div .details h2 a span {
+          color: #FFFFFF;
+          font-size: 8px;
+          font-family: "Miriam Libre", sans-serif; }
+      div .details h2 a:hover {
+        color: #FFFFFF; }
+    div .details span {
+      color: #4D5464; }
+      div .details span span {
+        color: #FFFFFF; }
 
 /*
   ____              _       _                   

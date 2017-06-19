@@ -34,10 +34,50 @@
                     <div class="col-md-9">
                         <span class="font-grey_light font-header">Profile</span>
                         <h3 class="font-white font-subheader">My Account</h3>
-                        <div class="divider-btm"></div>
+                        
+                        <div class="vertical-lg"></div>
+                    
+                        <!-- Account Information -->
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="avatar">
+                                        <span class="fa fa-user"></span>
+                                    </div>
+                                    
+                                    <div class="vertical-sm"></div>
+                                    
+                                    <div class="details">
+                                        <h2><?php echo $_SESSION['username']; ?> <a href="/Project/account/edit/details.php" class="fa fa-pencil-square"><span>Edit</span></a></h2>
+                                        <span class="fa fa-envelope"> <span class="font-white font-content"><?php echo $_SESSION['email']; ?></span></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <h5 class="font-white font-subheader">Submissions.</h5>
+                                    <div class="content-blackbox">
+                                        <h2 class="font-blue font-content text-center">No Submissions.</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <?php
+                // Alert if details changed
+                if (isset($_SESSION['message'])){?>
+                    <div class="success-message">
+                        <div class="message-content">
+                            <?php 
+                                echo $_SESSION['message']; 
+                                unset($_SESSION['message']);
+                            ?>
+                        </div>
+                    </div> 
+                <?php }else { // Display nothing
+                 
+                }
+            ?>
         <?php } else{ // Redirect to home page
             header('location: ../index.php');
         }?>

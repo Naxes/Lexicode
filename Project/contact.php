@@ -32,7 +32,6 @@
                 <div class="col-md-9">
                     <span class="font-md_grey source_sans_pro">CONTACT</span>
                     <h3 class="font-white miriam_libre">Email</h3>
-                    <div class="divider-btm"></div>
                 </div>
             </div>
         </div>

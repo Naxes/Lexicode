@@ -35,16 +35,13 @@
                 <div class="col-md-9">
                     <span class="font-grey_light font-header">ABOUT</span>
                     <h3 class="font-white font-subheader">About Us</h3>
-                    <div class="divider-btm"></div>
                     
-                    <!-- Vertical margin -->
                     <div class="vertical-sm"></div>
                     
                     <!-- Section 1 -->
                     <h1 class="font-white font-header text-center">The Ecosystem.</h1>
                     <h5 class="font-grey_light font-subheader text-center">Ensure the best, use the best.</h5>
                     
-                    <!-- Vertical margin -->
                     <div class="vertical-sm"></div>
                     
                     <div class="container">
@@ -87,17 +84,15 @@
                         </div>   
                     </div>
                     
-                    <!-- Vertical margin -->
                     <div class="vertical-lg"></div>
                     
                     <!-- Section 2 -->
                     <h1 class="font-white font-header text-center">Code for you, by you.</h1>
                     <h5 class="font-grey_light font-subheader text-center">Elegant, expressive, beautiful code.</h5>
                     
-                    <!-- Vertical margin -->
                     <div class="vertical-sm"></div>
                     
-                    <div class="container" id="about_blackbox">
+                    <div class="container content-blackbox">
                         <!-- Console window -->
                         <div class="row">
                             <div class="col-md-6">
@@ -107,9 +102,9 @@
                             <div class="col-md-6" style="position: relative;">
                                 <div class="console-window">
                                     <div class="top-bar">
-                                        <span class="fa fa-circle font-white"></span>
-                                        <span class="fa fa-circle font-white"></span>
-                                        <span class="fa fa-circle font-white"></span>
+                                        <span class="fa fa-circle"></span>
+                                        <span class="fa fa-circle"></span>
+                                        <span class="fa fa-circle"></span>
                                     </div>
                                     <div class="console-numbers"></div>
                                     <div class="console-content">
@@ -129,9 +124,6 @@
                             </div>
                         </div>
                         
-                        <!-- Vertical margin and line divider -->
-                        <div class="vertical-sm"></div>
-                        <div class="divider-btm"></div>
                         <div class="vertical-sm"></div>
                         
                         <!-- Console window -->
@@ -139,9 +131,9 @@
                             <div class="col-md-6" style="position: relative;">
                                 <div class="console-window">
                                     <div class="top-bar">
-                                        <span class="fa fa-circle font-white"></span>
-                                        <span class="fa fa-circle font-white"></span>
-                                        <span class="fa fa-circle font-white"></span>
+                                        <span class="fa fa-circle"></span>
+                                        <span class="fa fa-circle"></span>
+                                        <span class="fa fa-circle"></span>
                                     </div>
                                     <div class="console-numbers"></div>
                                     <div class="console-content">
@@ -169,9 +161,6 @@
                             </div>
                         </div>
                         
-                        <!-- Vertical margin and line divider -->
-                        <div class="vertical-sm"></div>
-                        <div class="divider-btm"></div>
                         <div class="vertical-sm"></div>
                         
                         <!-- Console window -->
@@ -183,9 +172,9 @@
                             <div class="col-md-6" style="position: relative;">
                                 <div class="console-window">
                                     <div class="top-bar">
-                                        <span class="fa fa-circle font-white"></span>
-                                        <span class="fa fa-circle font-white"></span>
-                                        <span class="fa fa-circle font-white"></span>
+                                        <span class="fa fa-circle"></span>
+                                        <span class="fa fa-circle"></span>
+                                        <span class="fa fa-circle"></span>
                                     </div>
                                     <div class="console-numbers"></div>
                                     <div class="console-content" style="overflow: auto;">
@@ -231,14 +220,13 @@
                         </div>
                     </div>
                     
-                    <!-- Vertical margin -->
                     <div class="vertical-lg"></div>
                     
                     <!-- Section 3 -->
                     <div class="container-fluid text-center">
                         <div class="row">
                             <div class="col-md-5">
-                                <div class="divider-btm"></div>
+                                
                             </div>
                             
                             <div class="col-md-2">
@@ -246,12 +234,11 @@
                             </div>
                             
                             <div class="col-md-5">
-                                <div class="divider-btm"></div>
+                                
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Vertical margin -->
                     <div class="vertical-sm"></div>
                     
                     <div class="container">
@@ -260,7 +247,7 @@
                                 <h5 class="font-white font-subheader"><span class="fa fa-code font-white" style="font-size: 25px;"></span> Syntax</h5>
                                 <p class="font-white">Using PrismJS, it's never been easier to display code how it was meant to be seen, and this goes for your submissions too.</p>
                                 
-                                <!-- Vertical margin -->
+                                
                                 <div class="vertical-sm"></div>
                                 
                                 <h5 class="font-white font-subheader"><span class="fa fa-code font-white" style="font-size: 25px;"></span> Basic Markup</h5>
@@ -271,7 +258,7 @@
                                 <h5 class="font-white font-subheader"><span class="fa fa-tags font-white" style="font-size: 25px;"></span> Tag</h5>
                                 <p class="font-white">Submitting HTML? CSS? PHP? Tagging allows you to inform everyone just what language your code pertains to.</p>
                                 
-                                <!-- Vertical margin -->
+                                
                                 <div class="vertical-sm"></div>
                                 
                                 <h5 class="font-white font-subheader"><span class="fa fa-filter font-white" style="font-size: 25px;"></span> Filter</h5>
@@ -282,7 +269,7 @@
                                 <h5 class="font-white font-subheader"><span class="fa fa-thumbs-up font-white" style="font-size: 25px;"></span> Status</h5>
                                 <p class="font-white">Build your reputation within the community by submitting quality content. Positive ratings are attributed to you.</p>
                                 
-                                <!-- Vertical margin -->
+                                
                                 <div class="vertical-sm"></div>
                                 
                                 <h5 class="font-white font-subheader"><span class="fa fa-eraser font-white" style="font-size: 25px;"></span> Edit and Delete</h5>
@@ -291,7 +278,6 @@
                         </div>
                     </div>
                     
-                    <!-- Vertical margin -->
                     <div class="vertical-lg"></div>
                 </div>
             </div>

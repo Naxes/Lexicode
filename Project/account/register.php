@@ -80,7 +80,6 @@
                         <div class="col-md-9">
                             <span class="font-grey_light font-header">REGISTER</span>
                             <h3 class="font-white font-subheader">Create an Account</h3>
-                            <div class="divider-btm"></div>
                             
                             <div class="vertical-sm"></div>
                             
@@ -145,12 +144,14 @@
                 <?php
                     // Alert if registration fails
                     if (isset($_SESSION['message'])){?>
-                        <div class="alert alert-danger" style="position: absolute; right: 0; bottom: 0; margin: 0 10px 10px 0;">
-                            <?php 
-                                echo $_SESSION['message']; 
-                                unset($_SESSION['message']);
-                            ?>
-                        </div> 
+                        <div class="error-message">
+                            <div class="message-content">
+                                <?php 
+                                    echo $_SESSION['message']; 
+                                    unset($_SESSION['message']);
+                                ?>
+                            </div>
+                        </div>
                     <?php }else { // Display nothing
                      
                     }
