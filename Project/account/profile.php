@@ -32,7 +32,7 @@
                     </div>
                     
                     <div class="col-md-9">
-                        <span class="font-grey_light font-header">Profile</span>
+                        <span class="font-grey_light font-header">PROFILE</span>
                         <h3 class="font-white font-subheader">My Account</h3>
                         
                         <div class="vertical-lg"></div>
@@ -48,7 +48,7 @@
                                     <div class="vertical-sm"></div>
                                     
                                     <div class="details">
-                                        <h2><?php echo $_SESSION['username']; ?> <a href="/Project/account/edit/details.php" class="fa fa-pencil-square"><span>Edit</span></a></h2>
+                                        <h2><?php echo $_SESSION['username']; ?> <a href="/Project/account/edit/details.php" class="fa fa-pencil-square"></a></h2>
                                         <span class="fa fa-envelope"> <span class="font-white font-content"><?php echo $_SESSION['email']; ?></span></span>
                                     </div>
                                 </div>

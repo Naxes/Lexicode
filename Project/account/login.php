@@ -84,7 +84,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <form method="post" autocomplete="off">
-                                            <!-- Username -->
+                                            <!-- Email -->
                                             <div class="container">
                                                 <div class="form-group row">
                                                     <div class="col-xs-2">

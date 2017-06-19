@@ -303,20 +303,19 @@ div {
       color: #FFFFFF;
       font-family: "Source Sans Pro", sans-serif; }
       div .details h2 a {
-        color: #4D5464;
-        text-decoration: none;
-        position: absolute;
-        right: 0; }
-        div .details h2 a span {
-          color: #FFFFFF;
-          font-size: 8px;
-          font-family: "Miriam Libre", sans-serif; }
-      div .details h2 a:hover {
-        color: #FFFFFF; }
+        visibility: hidden; }
     div .details span {
       color: #4D5464; }
       div .details span span {
         color: #FFFFFF; }
+  div .details:hover h2 a {
+    color: #4D5464;
+    text-decoration: none;
+    position: absolute;
+    right: 0;
+    visibility: visible; }
+  div .details:hover h2 a:hover {
+    color: #FFFFFF; }
 
 /*
   ____              _       _                   

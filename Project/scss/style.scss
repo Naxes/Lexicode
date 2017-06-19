@@ -328,20 +328,7 @@ div {
             font-family: $header-font;
             
             a {
-                color: $grey-light;
-                text-decoration: none;
-                position: absolute;
-                right: 0;
-                
-                span {
-                    color: $white;
-                    font-size: 8px;
-                    font-family: $subheader-font;
-                }
-            }
-            
-            a:hover {
-                color: $white;
+                visibility: hidden;
             }
         }
         
@@ -352,6 +339,22 @@ div {
                 color: $white;
             }
         }
+    }
+    
+    .details:hover {
+        h2 {
+            a {
+                color: $grey-light;
+                text-decoration: none;
+                position: absolute;
+                right: 0;
+                visibility: visible;
+            }
+            
+            a:hover {
+                color: $white;
+            }
+        }    
     }
 }
 
