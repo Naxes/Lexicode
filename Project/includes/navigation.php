@@ -1,8 +1,8 @@
 <!-- Side menu -->
 <div style="position: fixed;">
-    <div>
+    <div class="logo">
         <!-- Logo placeholder icon, NOT final -->
-        <a href="#"><span class="fa fa-file-code-o" style="font-size: 40px; color: #434857;"></span></a>
+        <a href="/Project/index.php"><?php include ('logo.svg'); ?></a>
     </div>
     <div class="vertical-sm"></div>
     

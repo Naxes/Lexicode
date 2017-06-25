@@ -35,8 +35,44 @@ body {
 
 ::selection {
   color: #FFFFFF;
-  background: #00535E; }
+  background: #E74C3C; }
 
+/*
+  _                       
+ | |                      
+ | |     ___   __ _  ___  
+ | |    / _ \ / _` |/ _ \ 
+ | |___| (_) | (_| | (_) |
+ |______\___/ \__, |\___/ 
+               __/ |      
+              |___/       
+*/
+.logo {
+  width: 180px;
+  position: relative; }
+  .logo svg {
+    transform: translate(-55px, 0px); }
+    .logo svg #path1, .logo svg #path2, .logo svg #path3 {
+      stroke-dasharray: 4000;
+      stroke-dashoffset: 4000;
+      animation: dash 2.5s linear forwards; }
+    .logo svg #fill1, .logo svg #fill2 {
+      opacity: 0; }
+    .logo svg #text1, .logo svg #text2, .logo svg #text3 {
+      opacity: 0;
+      animation: fade .5s linear forwards;
+      animation-delay: 2s; }
+    .logo svg #text2 {
+      animation-delay: 2.1s; }
+    .logo svg #text3 {
+      animation-delay: 2.2s; }
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0; } }
+@keyframes fade {
+  to {
+    opacity: 1; } }
 /*
    _____      _                
   / ____|    | |               

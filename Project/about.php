@@ -144,7 +144,7 @@
                                                 $str = "<?php 
                                                             echo "$str = The Snippet!"; 
                                                         ?>"
-                                                /* This replaces special characters, like <> */
+                                                
                                                 echo htmlspecialchars($str);
                                             ?>';
                                                 

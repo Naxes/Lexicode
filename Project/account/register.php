@@ -16,7 +16,8 @@
             // Escape $_POST variables to protect against SQL Injection
             $email = $mysqli->escape_string($_POST['email']);
             $username = $mysqli->escape_string($_POST['username']);
-            $password = $mysqli->escape_string(password_hash($_POST['password1'], PASSWORD_BCRYPT));
+            $password1 = $mysqli->escape_string($_POST['password1']);
+            $password2 = $mysqli->escape_string(password_hash($_POST['password1'], PASSWORD_BCRYPT));
             
             // Check that passwords match
             if ($_POST['password1'] == $_POST['password2']){
@@ -26,23 +27,28 @@
                 
                 // User already exists
                 if ($result->num_rows > 0) {
-                    $_SESSION['message'] = "A user with that email/username <b>already exists</b>";
+                    $_SESSION['message'] = "A user with that email/username already exists";
                 }else { // Continue registration
                     $sql = "INSERT INTO users (email, username, password) "
-                    . "VALUES ('$email', '$username', '$password')";
+                    . "VALUES ('$email', '$username', '$password2')";
                     
                     // Register user
                     if ($mysqli->query($sql)) {
                         $_SESSION['loggedin'] = true;
-                        $_SESSION['message'] = "Account <b>registered</b>.";
+                        
+                        //Unhashed password (for details.php)
+                        $_SESSION['password'] = $password1;
+                        
+                        $_SESSION['message'] = "Account registered.";
+                        
                         header('location: ../index.php');
                         exit;
                     }else { // Could not register user
-                        $_SESSION['message'] = "Could <b>not register user</b>";  
+                        $_SESSION['message'] = "Could not register user";  
                     }
                 }  
             }else { // Passwords do not match
-                $_SESSION['message'] = "The passwords <b>do not match</b>";
+                $_SESSION['message'] = "The passwords do not match";
             }
         }
     }

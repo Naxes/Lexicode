@@ -41,7 +41,7 @@
 
 <!DOCTYPE html>
     <head>
-        <title>Edit | Details</title>
+        <title>Profile | Edit Details</title>
         
         <!-- Bootstrap -->
         <link rel="stylesheet" href="../../../../node_modules/bootstrap/dist/css/bootstrap.css"/>
@@ -66,8 +66,8 @@
                     </div>
                     
                     <div class="col-md-9">
-                        <span class="font-grey_light font-header"><a href="/Project/account/profile.php" style="text-decoration: none;">PROFILE</a> | EDIT | DETAILS</span>
-                        <h3 class="font-white font-subheader">Edit Details</h3>
+                        <span class="font-grey_light font-header"><a href="/Project/account/profile.php" style="text-decoration: none;">PROFILE</a> | EDIT DETAILS</span>
+                        <h3 class="font-white font-subheader">My Account</h3>
                         
                         <div class="vertical-lg"></div>
                     

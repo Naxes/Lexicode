@@ -14,7 +14,7 @@
             
             // Check if user exists
             if ($result->num_rows == 0) { // User doesn't exist
-                $_SESSION['message'] = "User <b>does not exist</b>";
+                $_SESSION['message'] = "User does not exist";
             }else { // User exists
                 $user = $result->fetch_assoc();
                 
@@ -30,13 +30,13 @@
                     $_SESSION['loggedin'] = true;
                     
                     // Successful login
-                    $_SESSION['message'] = "Login <b>successful</b>.";
+                    $_SESSION['message'] = "Login successful.";
                     
                     // Redirect to home page
                     header('location: ../index.php');
                     
                 }else{ // Wrong password
-                    $_SESSION['message'] = "The password you entered was <b>incorrect</b>";
+                    $_SESSION['message'] = "The password you entered was incorrect";
                     
                 }
             }

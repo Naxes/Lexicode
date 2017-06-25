@@ -35,16 +35,6 @@
                 <div class="col-md-9">
                     <span class="font-grey_light font-header">HOME</span>
                     <h3 class="font-white font-subheader">Home Page</h3>
-                    
-                    <div class="vertical-md"></div>
-                    
-                    <h1 class="font-white font-header">Popular</h1>
-                    
-                    <div class="vertical-sm"></div>
-                    
-                    <div class="content-blackbox">
-                        <h2 class="font-blue font-content text-center">No Submissions.</h2>
-                    </div>
                 </div>
             </div>
         </div>
