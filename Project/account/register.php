@@ -6,18 +6,18 @@
     
     // Register
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-    
         if (isset($_POST['register'])){
-            
             // Session variables
             $_SESSION['email'] = $_POST['email'];
             $_SESSION['username'] = $_POST['username'];
             
-            // Escape $_POST variables to protect against SQL Injection
+            // Protect against SQL Injection
             $email = $mysqli->escape_string($_POST['email']);
             $username = $mysqli->escape_string($_POST['username']);
             $password1 = $mysqli->escape_string($_POST['password1']);
             $password2 = $mysqli->escape_string(password_hash($_POST['password1'], PASSWORD_BCRYPT));
+            $userid = uniqid();
+            $admin_rights = 0;
             
             // Check that passwords match
             if ($_POST['password1'] == $_POST['password2']){
@@ -27,10 +27,10 @@
                 
                 // User already exists
                 if ($result->num_rows > 0) {
-                    $_SESSION['message'] = "A user with that email/username already exists";
+                    $_SESSION['message'] = "Username/Email taken";
                 }else { // Continue registration
-                    $sql = "INSERT INTO users (email, username, password) "
-                    . "VALUES ('$email', '$username', '$password2')";
+                    $sql = "INSERT INTO users (email, username, password, userid, admin_rights)
+                    VALUES ('$email', '$username', '$password2', '$userid', '$admin_rights')";
                     
                     // Register user
                     if ($mysqli->query($sql)) {
@@ -39,6 +39,10 @@
                         //Unhashed password (for details.php)
                         $_SESSION['password'] = $password1;
                         
+                        // User ID
+                        $_SESSION['userid'] = $userid;
+                        
+                        // Popup message
                         $_SESSION['message'] = "Account registered.";
                         
                         header('location: ../index.php');
@@ -76,74 +80,93 @@
                 header('location: ../index.php');
                 exit;
             }else {?>
-                <div class="vertical-lg"></div>
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-3">
-                            <?php include '../includes/navigation.php'?>
+                        <div class="content-nav col-md-1">
+                            <?php include '../includes/content-nav.php'?>
                         </div>
-                        
-                        <div class="col-md-9">
-                            <span class="font-grey_light font-header">REGISTER</span>
-                            <h3 class="font-white font-subheader">Create an Account</h3>
-                            
-                            <div class="vertical-sm"></div>
-                            
+
+                        <div class="col-md-10 offset-md-1">
                             <!-- Registration form -->
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <form method="post" autocomplete="off">
-                                            <!-- Email -->
+                                    <div class="col-4"></div>
+                                    <div class="col-4">
+                                        <div class="vertical-md"></div>
+                                        <h1 class="font-white text-center"><i class="fa fa-user-plus"></i></h1>
+                                        <h2 class="font-white font-content text-center">Create an account</h2>
+                                        <div class="vertical-md"></div>
+                                        
+                                        <div class="content-blackbox">
+                                            <form method="post" autocomplete="off">
+                                                <!-- Email -->
+                                                <div class="container">
+                                                    <div class="form-group row">
+                                                        <div class="col-12">
+                                                            <label class="font-white" for="email">Email:</label>
+                                                            <input type="email" class="form-control" name="email" autocomplete="off" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Username -->
+                                                <div class="container">
+                                                    <div class="form-group row">
+                                                        <div class="col-12">
+                                                            <label class="font-white" for="username">Username:</label>
+                                                            <input type="text" class="form-control" name="username" autocomplete="off" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Password -->
+                                                <div class="container">
+                                                    <div class="form-group row">
+                                                        <div class="col-12">
+                                                            <label class="font-white" for="password1">Password:</label>
+                                                            <input type="password" class="form-control" name="password1" autocomplete="off" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Confirm password -->
+                                                <div class="container">
+                                                    <div class="form-group row">
+                                                        <div class="col-12">
+                                                            <label class="font-white" for="password2">Confirm password:</label>
+                                                            <input type="password" class="form-control" name="password2" autocomplete="off" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Register button -->
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <input type="submit" class="btn btn-primary" name="register" value="Register"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="vertical-md"></div>
+                                        
+                                        <div class="content-blackbox">
                                             <div class="container">
-                                                <div class="form-group row">
-                                                    <div class="col-xs-2">
-                                                        <label class="font-white" for="email">Email:</label>
-                                                        <input type="email" class="form-control" name="email" autocomplete="off" required />
+                                                <div class="row">
+                                                    <div class="col-12 text-center">
+                                                        <span class="font-white font-content">Have an account? <a href="/Project/account/login.php">Sign in</a></span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
-                                            <!-- Username -->
-                                            <div class="container">
-                                                <div class="form-group row">
-                                                    <div class="col-xs-2">
-                                                        <label class="font-white" for="username">Username:</label>
-                                                        <input type="text" class="form-control" name="username" autocomplete="off" required />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <!-- Password -->
-                                            <div class="container">
-                                                <div class="form-group row">
-                                                    <div class="col-xs-2">
-                                                        <label class="font-white" for="password1">Password:</label>
-                                                        <input type="password" class="form-control" name="password1" autocomplete="off" required />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <!-- Confirm password -->
-                                            <div class="container">
-                                                <div class="form-group row">
-                                                    <div class="col-xs-2">
-                                                        <label class="font-white" for="password2">Confirm password:</label>
-                                                        <input type="password" class="form-control" name="password2" autocomplete="off" required />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <input type="submit" class="btn btn-primary" name="register" value="Register"/>
-                                        </form>
+                                        </div>
                                     </div>
-                                    
-                                    <!-- Login link -->
-                                    <div class="col-md-6">
-                                        <h3 class="font-white">Already a Member?</h3>
-                                        <span class="font-white">Go ahead and <a href="login.php" style="text-decoration: none;">login</a> to your account!</span>
-                                    </div>
+                                    <div class="col-4"></div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="account-nav col-md-1">
+                            <?php include '../includes/account-nav.php'; ?>
                         </div>
                     </div>
                 </div>

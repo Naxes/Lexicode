@@ -25,19 +25,14 @@
         <link rel="stylesheet" href="css/output.css"/>
     </head>
     <body>
-        <div class="vertical-lg"></div>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-md-3">
-                   <?php include 'includes/navigation.php'; ?>
+                <div class="content-nav col-1">
+                   <?php include 'includes/content-nav.php'; ?>
                 </div>
                 
-                <div class="col-md-9">
-                    <span class="font-grey_light font-header">ABOUT</span>
-                    <h3 class="font-white font-subheader">About Us</h3>
-                    
-                    <div class="vertical-sm"></div>
-                    
+                <div class="col-md-10 offset-1">
+                    <div class="vertical-lg"></div>
                     <!-- Section 1 -->
                     <h1 class="font-white font-header text-center">The Ecosystem.</h1>
                     <h5 class="font-grey_light font-subheader text-center">Ensure the best, use the best.</h5>
@@ -239,7 +234,7 @@
                         </div>
                     </div>
                     
-                    <div class="vertical-sm"></div>
+                    <div class="vertical-lg"></div>
                     
                     <div class="container">
                         <div class="row">
@@ -279,6 +274,9 @@
                     </div>
                     
                     <div class="vertical-lg"></div>
+                </div>
+                <div class="account-nav col-1">
+                    <?php include 'includes/account-nav.php'; ?>
                 </div>
             </div>
         </div>

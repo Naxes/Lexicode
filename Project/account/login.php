@@ -22,6 +22,7 @@
                     // Session variables
                     $_SESSION['email'] = $user['email'];
                     $_SESSION['username'] = $user['username'];
+                    $_SESSION['userid'] = $user['userid'];
                     
                     //Unhashed password (for details.php)
                     $_SESSION['password'] = $password;
@@ -66,54 +67,73 @@
                 header('location: ../index.php');
                 exit;
             }else {?>
-                <div class="vertical-lg"></div>
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row">
-                        <div class="col-md-3">
-                            <?php include '../includes/navigation.php'?>
+                        <div class="content-nav col-1">
+                            <?php include '../includes/content-nav.php'?>
                         </div>
                         
-                        <div class="col-md-9">
-                            <span class="font-grey_light font-header">LOGIN</span>
-                            <h3 class="font-white font-subheader">Access an Account</h3>
-                            
-                            <div class="vertical-sm"></div>
-                            
+                        <div class="col-10 offset-1">
                             <!-- Login form -->
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-md-6">
-                                        <form method="post" autocomplete="off">
-                                            <!-- Email -->
+                                    <div class="col-4"></div>
+                                    <div class="col-4">
+                                        <div class="vertical-md"></div>
+                                        <h1 class="font-white text-center"><i class="fa fa-user"></i></h1>
+                                        <h2 class="font-white font-content text-center">Sign in</h2>
+                                        <div class="vertical-md"></div>
+                                        
+                                        <div class="content-blackbox">
+                                            <form method="post" autocomplete="off">
+                                                <!-- Email -->
+                                                <div class="container">
+                                                    <div class="form-group row">
+                                                        <div class="col-12">
+                                                            <label class="font-white" for="email">Email:</label>
+                                                            <input type="email" class="form-control" name="email" autocomplete="off" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Password -->
+                                                <div class="container">
+                                                    <div class="form-group row">
+                                                        <div class="col-12">
+                                                            <label class="font-white" for="password1">Password:</label>
+                                                            <input type="password" class="form-control" name="password1" autocomplete="off" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Login button -->
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <input type="submit" class="btn btn-primary" name="login" value="Login"></input>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="vertical-md"></div>
+                                        
+                                        <div class="content-blackbox">
                                             <div class="container">
-                                                <div class="form-group row">
-                                                    <div class="col-xs-2">
-                                                        <label class="font-white" for="email">Email:</label>
-                                                        <input type="email" class="form-control" name="email" autocomplete="off" required />
+                                                <div class="row">
+                                                    <div class="col-12 text-center">
+                                                        <span class="font-white font-content">New? <a href="/Project/account/register.php">Create an account</a></span>
                                                     </div>
                                                 </div>
                                             </div>
-                                            
-                                            <!-- Password -->
-                                            <div class="container">
-                                                <div class="form-group row">
-                                                    <div class="col-xs-2">
-                                                        <label class="font-white" for="password1">Password:</label>
-                                                        <input type="password" class="form-control" name="password1" autocomplete="off" required />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <input type="submit" class="btn btn-primary" name="login" value="Login"></input>
-                                        </form>
+                                        </div>
                                     </div>
-                                    
-                                    <!-- Register link -->
-                                    <div class="col-md-6">
-                                        <h3 class="font-white">Not a Member?</h3>
-                                        <span class="font-white">Why not <a href="register.php" style="text-decoration: none;">register</a> an account?</span>
-                                    </div>
+                                    <div class="col-4"></div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="account-nav col-1">
+                            <?php include '../includes/account-nav.php'; ?>
                         </div>
                     </div>
                 </div>

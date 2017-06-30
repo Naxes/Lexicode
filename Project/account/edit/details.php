@@ -2,39 +2,51 @@
     require '../../includes/db.php';
     session_start();
     
-    $active_page = "profile";
+    $active_page = "details";
     
     // Escape string to protect against SQL Injection
     $username = $mysqli->escape_string($_POST['username']);
     $email = $mysqli->escape_string($_POST['email']);
+    $bio = $mysqli->escape_string($_POST['bio']);
     $password1 = $mysqli->escape_string($_POST['password1']);
     $password2 = $mysqli->escape_string(password_hash($_POST['password1'], PASSWORD_BCRYPT));
     
-    // Get session variable for ID of current user
-    $result = $mysqli->query("SELECT * FROM users WHERE username = '" . $_SESSION['username'] . "'");
-    $user = $result->fetch_assoc();
-    $_SESSION['id'] = $user['id'];
+    // User assoc array
+    $query = $mysqli->query("SELECT * FROM users WHERE userid ='".$_SESSION['userid']."'");
+    $user = $query->fetch_assoc();
     
     // Change details
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         if (isset($_POST['update'])){
             // Check username exists outside of current login
-            $query = $mysqli->query("SELECT * FROM users WHERE (username = '$username' OR email = '$email') AND id <> '" . $_SESSION['id'] . "'");
-            
+            $query = $mysqli->query("SELECT * FROM users WHERE (username = '$username' OR email = '$email') AND userid <> '" . $_SESSION['userid'] . "'");
+
             if($query->num_rows > 0){
                 $_SESSION['message'] = "Username/Email taken";
             }else{ // Update details
-                $update = $mysqli->query("UPDATE users SET username = '$username', email = '$email', password = '$password2' WHERE id = '" . $_SESSION['id'] . "'");
-                
+                $update = $mysqli->query("UPDATE users SET username = '$username', bio = '$bio', email = '$email', password = '$password2' WHERE userid = '" . $_SESSION['userid'] . "'");
+
                 $_SESSION['username'] = $username;
                 $_SESSION['email'] = $email;
                 $_SESSION['password'] = $password1;
                 
                 $_SESSION['message'] = "Details updated";
                 // Redirect to profile
-                header("location: ../profile.php");
+                header("location: ../profile.php?id=".$_GET['id']."");
                 exit;
             }
+        }
+    }
+    
+    // Change avatar
+    if ($_SERVER['REQUEST_METHOD'] == "POST"){
+        if (!isset($_POST['update'])){
+            move_uploaded_file($_FILES['profile-pic'] ['tmp_name'], "../../images/".$_FILES['profile-pic'] ['name']);
+            $query = $mysqli->query("UPDATE users SET image = '".$_FILES['profile-pic'] ['name']."' WHERE userid = '".$_SESSION['userid']."'");
+            
+            $_SESSION['message'] = "Avatar updated";
+            header("location: ../profile.php?id=".$_GET['id']."");
+            exit;
         }
     }
 ?>
@@ -58,37 +70,39 @@
     <body>
         <?php if ($_SESSION['loggedin'] === true){ // Show edit page
             ?>
-            <div class="vertical-lg"></div>
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-3">
-                        <?php include '../../includes/navigation.php' ?>
+                    <div class="content-nav col-1">
+                        <?php include '../../includes/content-nav.php' ?>
                     </div>
                     
-                    <div class="col-md-9">
-                        <span class="font-grey_light font-header"><a href="/Project/account/profile.php" style="text-decoration: none;">PROFILE</a> | EDIT DETAILS</span>
-                        <h3 class="font-white font-subheader">My Account</h3>
-                        
-                        <div class="vertical-lg"></div>
-                    
+                    <div class="col-md-10 offset-1">
                         <!-- Account Information -->
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="avatar" style="opacity: 0.4;">
-                                        <span class="fa fa-user"></span>
-                                    </div>
+                                <div class="col-2"></div>
+                                <div class="col-4">
+                                    <div class="vertical-lg"></div>
                                     
-                                    <div class="vertical-sm"></div>
-                                    
-                                    <div class="details">
+                                    <h2 class="font-white font-header text-center">Details</h2>
+                                    <div class="details content-blackbox">
                                         <form method="post" autocomplete="off">
                                             <!-- Username -->
                                             <div class="container">
                                                 <div class="form-group row">
-                                                    <div class="col-xs-2">
+                                                    <div class="col-12">
                                                         <label class="font-white" for="username">Username:</label>
-                                                        <input type="text" class="form-control" name="username" value ="<?php echo $_SESSION['username']; ?>" autocomplete="off" required />
+                                                        <input type="text" class="form-control" name="username" value="<?php echo $_SESSION['username']; ?>" autocomplete="off" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Bio -->
+                                            <div class="container">
+                                                <div class="form-group row">
+                                                    <div class="col-12">
+                                                        <label class="font-white" for="bio">Bio:</label>
+                                                        <textarea type="text" class="form-control" name="bio" autocomplete="off" style="resize: none;"><?php echo $user['bio']; ?></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -96,9 +110,9 @@
                                             <!-- Email -->
                                             <div class="container">
                                                 <div class="form-group row">
-                                                    <div class="col-xs-2">
+                                                    <div class="col-12">
                                                         <label class="font-white" for="email">Email:</label>
-                                                        <input type="email" class="form-control" name="email" value ="<?php echo $_SESSION['email']; ?>" autocomplete="off" required />
+                                                        <input type="email" class="form-control" name="email" value="<?php echo $_SESSION['email']; ?>" autocomplete="off" required />
                                                     </div>
                                                 </div>
                                             </div>
@@ -106,24 +120,56 @@
                                             <!-- Password -->
                                             <div class="container">
                                                 <div class="form-group row">
-                                                    <div class="col-xs-2">
+                                                    <div class="col-12">
                                                         <label class="font-white" for="password1">Password:</label>
-                                                        <input type="password" class="form-control" name="password1" value ="<?php echo $_SESSION['password']; ?>" autocomplete="off" required />
+                                                        <input type="password" class="form-control" name="password1" value="<?php echo $_SESSION['password']; ?>" autocomplete="off" required />
                                                     </div>
                                                 </div>
                                             </div>
-                                            <input type="submit" class="btn btn-primary" name="update" value="Update"></input>
+                                            
+                                            <!-- Update button -->
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-12">
+                                                        <input type="submit" class="btn btn-primary" name="update" value="Update" style="width: 50%;"></input>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </form>   
                                     </div>
                                 </div>
-                                <div class="col-md-8" style="opacity: 0.4;">
-                                    <h5 class="font-white font-subheader">Submissions.</h5>
-                                    <div class="content-blackbox">
-                                        <h2 class="font-blue font-content text-center">No Submissions.</h2>
+                                <div class="col-3">
+                                    <div class="vertical-lg"></div>
+                                    <h2 class="font-white font-header text-center">Avatar</h2>
+                                    <div class="profile-img">
+                                        <?php 
+                                            $query = $mysqli->query("SELECT * FROM users WHERE userid = '" . $_SESSION['userid'] ."'");
+                                            $user = $query->fetch_assoc();
+                                            if ($user['image'] === ""){
+                                                echo "<img width='100%' height='100%' src='/Project/images/default.png' alt='Default profile picture'/>";
+                                            } else {
+                                                echo "<img width='100%' height='100%' src='/Project/images/".$user['image']."' alt='Profile picture'/>";
+                                            }
+                                        ?>
+                                        <div class="vertical-sm"></div>
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <form class="edit-avatar text-center" method="post" enctype="multipart/form-data">
+                                                        <label class="font-white font-subheader" for="file">Change your avatar</label>
+                                                        <input id="file" type="file" name="profile-pic" onchange="this.form.submit();" style="opacity: 0; position: absolute;"/>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="col-3"></div>
                             </div>
                         </div>
+                    </div>
+                    <div class="account-nav col-1">
+                        <?php include '../../includes/account-nav.php'; ?>
                     </div>
                 </div>
             </div>

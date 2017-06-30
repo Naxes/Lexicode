@@ -12,9 +12,12 @@
                      __/ |
                     |___/ 
 */
+html, body{
+    height: 100%;
+}
 // Site background color and font
 body {
-    background: $blue-dark;
+    background: $black;
     font-family: $content-font;
     -webkit-backface-visibility: hidden;
 }
@@ -36,81 +39,108 @@ body {
 
 ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background: $blue-dark;
 }
  
 ::-webkit-scrollbar-thumb {
-  background-color: $blue;
+  background: $black;
   outline: 1px solid slategrey;
 }
 
 // Color when highlighting text
 ::selection {
     color: $white;
-    background: $red;
+    background: $blue;
 }
 
 /*
-  _                       
- | |                      
- | |     ___   __ _  ___  
- | |    / _ \ / _` |/ _ \ 
- | |___| (_) | (_| | (_) |
- |______\___/ \__, |\___/ 
-               __/ |      
-              |___/       
+  _   _             _             _   _             
+ | \ | |           (_)           | | (_)            
+ |  \| | __ ___   ___  __ _  __ _| |_ _  ___  _ __  
+ | . ` |/ _` \ \ / / |/ _` |/ _` | __| |/ _ \| '_ \ 
+ | |\  | (_| |\ V /| | (_| | (_| | |_| | (_) | | | |
+ |_| \_|\__,_| \_/ |_|\__, |\__,_|\__|_|\___/|_| |_|
+                       __/ |                        
+                      |___/                         
 */
-.logo {
-    width: 180px;
-    position: relative;
+.content-nav {
+    height: 100%;
+    width: 100px;
+    padding: 0;
+    position: fixed;
+    background: $blue-dark;
+    text-align: center;
     
-    svg {
-        transform: translate(-55px, 0px);
-        #path1 {
-            stroke-dasharray: 4000;
-            stroke-dashoffset: 4000;
-            animation: dash 2.5s linear forwards;
+    .logo {
+        width: 100%;
+        color: $white;
+        font-size: 40px;
+        
+        img {
+            width: 50px;
+            height: 50px;
+            border-radius: 40px;
         }
         
-        #path2 {
-            @extend #path1
+        a {
+            color: white;
+        }
+    }
+    
+    ul {
+        color: $white;
+        padding: 0;
+        list-style: none;
+        
+        a {
+            width: 100%;
+            height: 80px;
+            color: $white;
+            text-decoration: none;
+            display: block;
+            
+            .content-icons {
+                padding-top: 20px;
+            }
         }
         
-        #path3 {
-            @extend #path1 
+        a.active {
+            background: $black;
         }
         
-        #fill1 {
-            opacity: 0;
-        }
-        
-        #fill2 {
-            @extend #fill1;
-        }
-        
-        #text1 {
-            opacity: 0;
-            animation: fade .5s linear forwards;
-            animation-delay: 2s;
-        }
-        
-        #text2 {
-            @extend #text1;
-            animation-delay: 2.1s; 
-        }
-        
-        #text3 {
-            @extend #text1;
-            animation-delay: 2.2s; 
+        a:hover {
+            background: $black;
         }
     }
 }
 
-@keyframes dash {
-    to { stroke-dashoffset: 0; }
-}
-
-@keyframes fade {
-    to { opacity: 1; }
+.account-nav {
+    @extend .content-nav;
+    right: 0;
+    
+    ul {
+        color: $white;
+        font-size: 25px;
+        padding: 0;
+        list-style: none;
+        
+        a {
+            width: 100%;
+            height: 80px;
+            line-height: 80px;
+            color: $white;
+            text-decoration: none;
+            display: block;
+        }
+        
+        a.active {
+            background: $black;
+        }
+        
+        a:hover {
+            background: $black;
+        }
+    }
 }
 
 /*
@@ -155,7 +185,10 @@ body {
 .font-medium { font-weight: $medium; }
 .font-heavy { font-weight: $heavy; }
 
-
+// Default links
+a, a:hover {
+    color: $blue;  
+}
 /*
   __  __                 _           
  |  \/  |               (_)          
@@ -176,6 +209,8 @@ body {
 .horizontal-md { margin: $hmargin-md; }
 .horizontal-lg { margin: $hmargin-lg; }
 
+// Horizontal lines
+.horizontaline-sm { border-bottom: 1px dotted $white; margin: 10px;}
 /*
   __  __                                     
  |  \/  |                                    
@@ -227,6 +262,83 @@ body {
 }
 
 /*
+  _    _                        _____                 
+ | |  | |                      |  __ \                
+ | |__| | ___  _ __ ___   ___  | |__) |_ _  __ _  ___ 
+ |  __  |/ _ \| '_ ` _ \ / _ \ |  ___/ _` |/ _` |/ _ \
+ | |  | | (_) | | | | | |  __/ | |  | (_| | (_| |  __/
+ |_|  |_|\___/|_| |_| |_|\___| |_|   \__,_|\__, |\___|
+                                            __/ |     
+                                           |___/      
+*/
+.search {
+    .form-control {
+        border: 0px;
+        background: rgba(0, 0, 0, 0);
+    }
+    
+    .form-control:focus {
+        border: 0px;
+        background: rgba(0, 0, 0, 0);
+    }
+    
+    .search-icon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+}
+
+.upload-link {
+    -webkit-transform: translate(0px, 0px);
+    -webkit-transition: transform .2s;
+}
+
+.upload-link:hover {
+    -webkit-transform: translate(0px, -3px);
+    -webkit-transition: transform .2s;
+    
+    a {
+        text-decoration: none;
+    }
+}
+
+.user-list {
+    width: 100%;
+    height: 250px;
+    
+    .content-blackbox {
+        width: 100%;
+        height: 100%;
+        
+        a:hover {
+            text-decoration: none;
+            
+            img {
+                border: 3px solid $blue;
+            }
+            
+            span {
+                color: $blue;
+            }
+        }
+        
+        img {
+            width: 50px;
+            height: 50px;
+            border: 3px solid $white;
+            border-radius: 40px;
+        }
+    }
+}
+
+.admin-list {
+    @extend .user-list;
+    height: auto;
+}
+
+
+/*
            _                 _     _____                 
      /\   | |               | |   |  __ \                
     /  \  | |__   ___  _   _| |_  | |__) |_ _  __ _  ___ 
@@ -245,7 +357,7 @@ div {
         opacity: 0;
         animation: zipup 1s ease-in forwards;
         box-shadow: 0 2px 8px rgba(0,0,0,.5);
-        background-color: $green;
+        background-color: $blue-dark;
     }
     
     .info-box.first {
@@ -268,7 +380,7 @@ div {
         padding: 10px 10px 0 10px;
         display: flex;
         align-items: center;
-        background-color: $green-dark;
+        background-color: $black;
         
         span {
             position: absolute; 
@@ -292,19 +404,25 @@ div {
 // Opaque blackbox container
 .content-blackbox {
     display: block;
+    position: relative;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 10px; 
-    margin: 0 0 50px 0; 
-    border-radius: 10px; 
-    background-color: rgba(30,30,32,0.5);
+    padding: 10px;
+    background-color: $blue-dark;
     box-shadow: 0 2px 8px rgba(0,0,0,.5);
+    
+    form {
+        width: 100%;
+        input {
+            width: 100%;
+        }
+    }
 }
 
 // Console windows
 .console-window {
     width: 100%;
-    height: 205px;
+    height: 200px;
     border-radius: 5px;
     background-color: $black-light;
     
@@ -368,57 +486,56 @@ div {
                                              __/ |     
                                             |___/      
 */
-.avatar {
+.profile-img {
     width: 100%;
-    height: 220px;
-    font-size: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    color: $grey;
-    background-color: $grey-lightest;
+    img {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+    }
 }
 
-
-div {
+.details {
     position: relative;
-    .details {
-        width: 100%;
-        height: auto;
-        
-        h2 {
-            color: $white;
-            font-family: $header-font;
-            
-            a {
-                visibility: hidden;
-            }
-        }
-        
-        span {
-            color: $grey-light;
-            
-            span {
-                color: $white;
-            }
-        }
+    .edit-icon {
+        color: $grey-light;
+        font-size: 25px;
+        opacity: 0;
+        position: absolute;
+        right: 0;
+    }
+}
+
+.details:hover {
+    .edit-icon {
+        opacity: 1;
     }
     
-    .details:hover {
-        h2 {
-            a {
-                color: $grey-light;
-                text-decoration: none;
-                position: absolute;
-                right: 0;
-                visibility: visible;
-            }
-            
-            a:hover {
-                color: $white;
-            }
-        }    
+    .edit-icon:hover {
+        color: $white;
+    }
+}
+
+/*
+  _____       _        _ _       _____                 
+ |  __ \     | |      (_) |     |  __ \                
+ | |  | | ___| |_ __ _ _| |___  | |__) |_ _  __ _  ___ 
+ | |  | |/ _ \ __/ _` | | / __| |  ___/ _` |/ _` |/ _ \
+ | |__| |  __/ || (_| | | \__ \ | |  | (_| | (_| |  __/
+ |_____/ \___|\__\__,_|_|_|___/ |_|   \__,_|\__, |\___|
+                                             __/ |     
+                                            |___/      
+*/
+.edit-avatar {
+    label {
+        width: 100%;
+        border-radius: 10px;
+        background: $green;
+    }
+    
+    label:hover {
+        cursor: pointer;
+        background: $green-dark;
     }
 }
 
@@ -434,69 +551,44 @@ div {
 */
 // Background color of input fields 
 .form-control {
-    color: #cdd0d8;
+    color: $grey-lightest;
     background-color: #434857;
 }
 
 // Input field text color when focused on
 .form-control:focus {
-  color: #464a4c;
-  background-color: #fff;
+  color: $grey-lightest;
+  background-color: #434857;
   border-color: #5cb3fd;
   outline: none;
 }
 
 // Color of the placeholder text in input fields
 .form-control::-webkit-input-placeholder { 
-    color: #cdd0d8; 
+    color: $grey-lightest; 
 }
 
 .form-control:-moz-placeholder { 
-    color: #cdd0d8; 
+    color: $grey-lightest; 
 }
 
 .form-control::-moz-placeholder { 
-    color: #cdd0d8; 
+    color: $grey-lightest; 
 }
 
 .form-control:-ms-input-placeholder { 
-    color: #cdd0d8; 
-}
-
-// Color of links inside list groups 
-.list-group a {
-    color: #cdd0d8;
-}
-
-// Border radius and background color of list-group-items
-.list-group-item {
-    border: none;
-    border-radius: 5px;
-    background-color: #252830;
-}
-
-// Link color of list-group-item on hover
-.list-group-item:hover {
-    border: none;
-    color: #ffffff;
-    border-radius: 5px;
-}
-
-// Color of the active list-group-item
-.list-group-item.active {
-    color: #242a33;
-    background-color: #1997c6;
+    color: $grey-lightest; 
 }
 
 // Color of button type primary
 .btn-primary {
-    color: #cdd0d8;
-    background-color: #1997c6;
-    border-color: #1997c6;
+    color: $grey-lightest;
+    background-color: $blue;
+    border-color: $blue;
 }
 
 .btn-primary:hover, .btn-primary.active {
-    color: #fff;
+    color: $white;
     background-color: #197CC6;
     border-color: #197CC6;
 }

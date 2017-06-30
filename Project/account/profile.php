@@ -22,44 +22,72 @@
         <link rel="stylesheet" href="../css/output.css"/>
     </head>
     <body>
-        <?php if ($_SESSION['loggedin'] === true){ // Show profile page
+        <?php if ($_SESSION['loggedin'] === true && $_GET['id'] != ""){ // Show profile page
             ?>
-            <div class="vertical-lg"></div>
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-3">
-                        <?php include '../includes/navigation.php' ?>
+                    <div class="content-nav col-1">
+                        <?php include '../includes/content-nav.php' ?>
                     </div>
                     
-                    <div class="col-md-9">
-                        <span class="font-grey_light font-header">PROFILE</span>
-                        <h3 class="font-white font-subheader">My Account</h3>
-                        
-                        <div class="vertical-lg"></div>
-                    
-                        <!-- Account Information -->
+                    <div class="col-10 offset-1">
                         <div class="container">
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="avatar">
-                                        <span class="fa fa-user"></span>
+                                <div class="col-1"></div>
+                                <div class="col-3">
+                                    <div class="vertical-lg"></div>
+                                    <div class="profile-img">
+                                        <?php 
+                                            $query = $mysqli->query("SELECT * FROM users WHERE userid = '" .$_GET['id']."'");
+                                            $user = $query->fetch_assoc();
+                                            if ($user['image'] === ""){
+                                                echo "<img src='/Project/images/default.png' alt='Default profile picture'/>";
+                                            } else {
+                                                echo "<img src='/Project/images/".$user['image']."' alt='Profile picture'/>";
+                                            }
+                                        ?>
                                     </div>
-                                    
                                     <div class="vertical-sm"></div>
-                                    
                                     <div class="details">
-                                        <h2><?php echo $_SESSION['username']; ?> <a href="/Project/account/edit/details.php" class="fa fa-pencil-square"></a></h2>
-                                        <span class="fa fa-envelope"> <span class="font-white font-content"><?php echo $_SESSION['email']; ?></span></span>
+                                        <?php 
+                                            if ($_GET['id'] === $_SESSION['userid']){ ?>
+                                                <a href="/Project/account/edit/details.php?id=<?php echo $_SESSION['userid']; ?>"><i class="edit-icon fa fa-pencil-square"></i></a>   
+                                            <?php }
+                                        ?>
+                                        <h2 class="font-white font-header"><?php echo $user['username']; ?></h2>
+                                        <?php 
+                                            if ($user['bio'] === ""){ ?>
+                                                <span class="font-grey_light font-content">[No Bio]</span></br>    
+                                                <div class="vertical-sm"></div>
+                                            <?php } else { ?>
+                                                <span class="font-grey_light font-content"><?php echo $user['bio']; ?></span></br>    
+                                                <div class="vertical-sm"></div>
+                                            <?php }
+                                        ?>
+                                        <i class="font-white fa fa-envelope"></i> <a href="mailto:<?php echo $user['email']; ?>" class="font-content"><?php echo $user['email']; ?></a>    
                                     </div>
                                 </div>
-                                <div class="col-md-8">
-                                    <h5 class="font-white font-subheader">Submissions.</h5>
-                                    <div class="content-blackbox">
-                                        <h2 class="font-blue font-content text-center">No Submissions.</h2>
-                                    </div>
+                                <div class="col-8">
+                                    <div class="vertical-lg"></div>
+                                    <h2 class="font-white font-header">Submissions</h2>
+                                    <?php 
+                                        $query = $mysqli->query("SELECT * FROM code WHERE codeid = '".$_GET['id']."'");
+                                        
+                                        while ($row = $query->fetch_array()){
+                                            echo "<div class='content-blackbox'>
+                                            <h4 class='font-white font-header'>".$row['name']."</h4>
+                                            <h5 class='font-white font-subheader' style='margin-left: 20px;'>by ".$row['author']."</h5>
+                                        </div>
+                                        <div class='vertical-sm'></div>";
+                                        }
+                                    ?>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    
+                    <div class="account-nav col-1">
+                        <?php include '../includes/account-nav.php' ?>
                     </div>
                 </div>
             </div>
