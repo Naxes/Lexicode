@@ -22,7 +22,7 @@
         <link rel="stylesheet" href="../css/output.css"/>
     </head>
     <body>
-        <?php if ($_SESSION['loggedin'] === true && $_GET['id'] != ""){ // Show profile page
+        <?php if ($_GET['id'] != ""){ // Show profile page
             ?>
             <div class="container-fluid">
                 <div class="row">
@@ -51,7 +51,7 @@
                                     <div class="details">
                                         <?php 
                                             if ($_GET['id'] === $_SESSION['userid']){ ?>
-                                                <a href="/Project/account/edit/details.php?id=<?php echo $_SESSION['userid']; ?>"><i class="edit-icon fa fa-pencil-square"></i></a>   
+                                                <a href="/Project/account/edit/details.php?id=<?php echo $_SESSION['userid']; ?>"><i class="edit-details fa fa-pencil-square"></i></a>   
                                             <?php }
                                         ?>
                                         <h2 class="font-white font-header"><?php echo $user['username']; ?></h2>
@@ -73,12 +73,17 @@
                                     <?php 
                                         $query = $mysqli->query("SELECT * FROM code WHERE codeid = '".$_GET['id']."'");
                                         
-                                        while ($row = $query->fetch_array()){
-                                            echo "<div class='content-blackbox'>
-                                            <h4 class='font-white font-header'>".$row['name']."</h4>
-                                            <h5 class='font-white font-subheader' style='margin-left: 20px;'>by ".$row['author']."</h5>
-                                        </div>
-                                        <div class='vertical-sm'></div>";
+                                        while ($row = $query->fetch_array()) {
+                                            echo "<div class='post content-blackbox'>
+                                                <a class='post-title' href='/Project/code/post.php?id=".$row['id']."'><h4 class='font-header' style='margin-bottom: 0;'>".$row['name']."</h4></a>
+                                                <span class='language font-grey_lightest font-content'>".$row['language']."</span>";
+                                                if ($_GET['id'] === $_SESSION['userid']){
+                                                    echo "<a class='edit-submission' href='#'><i class='fa fa-pencil-square'></i></a>
+                                                <a class='delete-submission' href='/Project/account/edit/delete.php?id=".$row['id']."'><i class='fa fa-times-circle'></i></a>";
+                                                }
+                                        echo    "<a class='post-user' href='/Project/account/profile.php?id=".$row['codeid']."'><span class='font-subheader' style='margin-left: 20px;'>/u/".$row['author']."</span></a>
+                                            </div>
+                                            <div class='vertical-sm'></div>";
                                         }
                                     ?>
                                 </div>

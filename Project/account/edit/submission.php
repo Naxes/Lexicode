@@ -2,34 +2,10 @@
     require '../includes/db.php';
     session_start();
     
-    $active_page = "upload";
+    $active_page = "submission";
     
-    // Upload
-    if ($_SERVER['REQUEST_METHOD'] == "POST"){
-        if (isset($_POST['upload'])){
-            
-            $name = $mysqli->escape_string($_POST['name']);
-            $description = $mysqli->escape_string($_POST['description']);
-            $code = $mysqli->escape_string($_POST['code']);
-            $language = $_POST['language'];
-            $author = $_SESSION['username'];
-            $codeid = $_SESSION['userid'];
-            
-            $sql = "INSERT INTO code (name, description, code, language, author, codeid)
-                    VALUES ('$name', '$description', '$code', '$language', '$author', '$codeid')";
-            
-            if ($mysqli->query($sql)){
-                // Upload the code
-                $_SESSION['message'] = "Code submitted";
-                header('location: ../index.php');
-                exit;
-            } else {
-                $_SESSION['message'] = "Could not upload";
-                header('location: ../index.php');
-                exit;
-            }
-        }
-    }
+    // Edit Submission
+
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +25,7 @@
         <link rel="stylesheet" href="../css/output.css"/>
     </head>
     <body>
-        <?php if ($_SESSION['loggedin'] === true){ // Show upload page
+        <?php if ($_SESSION['loggedin'] === true && $_GET['id'] != ""){
             ?>
             <div class="container-fluid">
                     <div class="row">

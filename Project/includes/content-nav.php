@@ -7,16 +7,12 @@
 <div class="vertical-sm"></div>
 <ul>
     <a href="#" class="<?php if ($active_page == ""){echo "active";} ?>">
-        <i class="content-icons fa fa-fire"></i>
-        <li>Hot</li>
+        <i class="content-icons fa fa-sort-numeric-asc"></i>
+        <li>Old</li>
     </a>
     <a href="#" class="<?php if ($active_page == ""){echo "active";} ?>">
         <i class="content-icons fa fa-sort-numeric-desc"></i>
         <li>New</li>
-    </a>
-    <a href="#" class="<?php if ($active_page == ""){echo "active";} ?>">
-        <i class="content-icons fa fa-rocket"></i>
-        <li>Rising</li>
     </a>
     <a href="#" class="<?php if ($active_page == ""){echo "active";} ?>">
         <i class="content-icons fa fa-trophy"></i>

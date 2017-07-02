@@ -5,9 +5,9 @@
         
         if ($_SESSION['loggedin'] === true){
             if ($user['image'] === ""){
-                echo "<img width='100%' height='100%' src='/Project/images/default.png' alt='Default profile picture'/>";    
+                echo "<a href='/Project/account/profile.php?id=".$_SESSION['userid']."'><img width='100%' height='100%' src='/Project/images/default.png' alt='Default profile picture'/></a>";    
             } else {
-                echo "<img src='/Project/images/".$user['image']."' alt='Profile picture'/>";
+                echo "<a href='/Project/account/profile.php?id=".$_SESSION['userid']."'><img src='/Project/images/".$user['image']."' alt='Profile picture'/></a>";
             }
         } else { ?>
             <span class="font-white fa fa-user-circle-o"></span>   
