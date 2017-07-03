@@ -19,11 +19,14 @@
                     VALUES ('$name', '$description', '$code', '$language', '$author', '$codeid')";
             
             if ($mysqli->query($sql)){
-                // Upload the code
+                // Success message
+                $_SESSION['message-type'] = "success-message";
                 $_SESSION['message'] = "Code submitted";
                 header('location: ../index.php');
                 exit;
             } else {
+                // Error message
+                $_SESSION['message-type'] = "error-message";
                 $_SESSION['message'] = "Could not upload";
                 header('location: ../index.php');
                 exit;
@@ -66,7 +69,6 @@
                                         <div class="vertical-md"></div>
                                         <h1 class="font-white text-center"><i class="fa fa-upload"></i></h1>
                                         <h2 class="font-white font-content text-center">Upload a snippet</h2>
-                                        <p class="font-white font-content text-center">(You can't edit mistakes yet)</p>
                                         <div class="vertical-md"></div>
                                         
                                         <div class="content-blackbox">
@@ -96,7 +98,7 @@
                                                     <div class="form-group row">
                                                         <div class="col-12">
                                                             <label class="font-white" for="code">Code:</label>
-                                                            <textarea type="text" id="code" class="form-control" name="code" autocomplete="off" required></textarea>
+                                                            <textarea type="text" id="code" class="form-control" name="code" autocomplete="off" style="white-space: nowrap;" required></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -110,8 +112,10 @@
                                                                 <option value="">Please select</option>
                                                                 <option>HTML</option>
                                                                 <option>CSS</option>
-                                                                <option>JS</option>
+                                                                <option>Javascript</option>
                                                                 <option>PHP</option>
+                                                                <option>SQL</option>
+                                                                <option>Git</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -141,7 +145,10 @@
                     </div>
                 </div>
         <?php }else{ // Redirect to home page
+            $_SESSION['message-type'] = "error-message";
+            $_SESSION['message'] = "You must be logged in to upload";
             header('location: ../index.php');
+            exit;
         }?>
         <script src="/Project/js/main.js"></script>
     </body>

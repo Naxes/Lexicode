@@ -27,6 +27,7 @@
                 
                 // User already exists
                 if ($result->num_rows > 0) {
+                    $_SESSION['message-type'] = "error-message";
                     $_SESSION['message'] = "Username/Email taken";
                 }else { // Continue registration
                     $sql = "INSERT INTO users (email, username, password, userid, admin_rights)
@@ -42,16 +43,19 @@
                         // User ID
                         $_SESSION['userid'] = $userid;
                         
-                        // Popup message
+                        // Success message
+                        $_SESSION['message-type'] = "success-message";
                         $_SESSION['message'] = "Account registered.";
                         
                         header('location: ../index.php');
                         exit;
                     }else { // Could not register user
+                        $_SESSION['message-type'] = "error-message";
                         $_SESSION['message'] = "Could not register user";  
                     }
                 }  
             }else { // Passwords do not match
+                $_SESSION['message-type'] = "error-message";
                 $_SESSION['message'] = "The passwords do not match";
             }
         }
@@ -173,7 +177,7 @@
                 <?php
                     // Alert if registration fails
                     if (isset($_SESSION['message'])){?>
-                        <div class="error-message">
+                        <div class="<?php echo $_SESSION['message-type']; ?>">
                             <div class="message-content">
                                 <?php 
                                     echo $_SESSION['message']; 

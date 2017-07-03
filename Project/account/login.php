@@ -14,6 +14,7 @@
             
             // Check if user exists
             if ($result->num_rows == 0) { // User doesn't exist
+                $_SESSION['message-type'] = "error-message";
                 $_SESSION['message'] = "User does not exist";
             }else { // User exists
                 $user = $result->fetch_assoc();
@@ -31,12 +32,14 @@
                     $_SESSION['loggedin'] = true;
                     
                     // Successful login
-                    $_SESSION['message'] = "Login successful.";
+                    $_SESSION['message-type'] = "success-message";
+                    $_SESSION['message'] = "Logged in";
                     
                     // Redirect to home page
                     header('location: ../index.php');
                     
                 }else{ // Wrong password
+                    $_SESSION['message-type'] = "error-message";
                     $_SESSION['message'] = "The password you entered was incorrect";
                     
                 }
@@ -140,7 +143,7 @@
                 <?php
                     // Alert if login fails
                     if (isset($_SESSION['message'])){?>
-                        <div class="error-message">
+                        <div class="<?php echo $_SESSION['message-type']; ?>">
                             <div class="message-content">
                                 <?php 
                                     echo $_SESSION['message']; 

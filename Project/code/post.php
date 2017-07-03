@@ -41,6 +41,7 @@
                                         
                                         while ($row = $query->fetch_array()) {
                                             echo "<div class='post content-blackbox'>
+                                                <div class='vertical-sm'></div>
                                                 <a class='post-title' href='/Project/code/post.php?id=".$row['id']."'><h4 class='font-header' style='margin-bottom: 0;'>".$row['name']."</h4></a>
                                                 <a class='post-user' href='/Project/account/profile.php?id=".$row['codeid']."'><span class='font-subheader' style='margin-left: 20px;'>/u/".$row['author']."</span></a>
                                                 <div class='vertical-sm'></div>
@@ -54,6 +55,7 @@
                                                     <pre><code class='language-".$row['language']."'>".htmlspecialchars($row['code'])."
                                                     </code></pre>
                                                 </div>
+                                                <div class='vertical-sm'></div>
                                             </div>
                                             <div class='vertical-sm'></div>";
                                         }
@@ -88,9 +90,15 @@
              
             }
         ?>
-        <!-- Prism syntax highlighter JS -->
+        <!-- PrismJS main -->
         <script src="../../../node_modules/prismjs/prism.js"></script>
+        <!-- PHP support (PrismJS) -->
         <script src="../../../node_modules/prismjs/components/prism-php.js"></script>
+        <!-- SQL support (PrismJS) -->
+        <script src="../../../node_modules/prismjs/components/prism-sql.js"></script>
+        <!-- Git support (PrismJS) -->
+        <script src="../../../node_modules/prismjs/components/prism-git.js"></script>
+        <!-- Normalize whitespace (PrismJS) -->
         <script src="../../../node_modules/prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.js"></script>
     </body>
 </html>

@@ -1,7 +1,7 @@
 <div class="col-4">
     <div class="content-blackbox">
         <form method="post" class="search" autocomplete="off">
-            <input type="text" class="form-control" placeholder="Search"/>
+            <input type="text" class="form-control" name="search" placeholder="Search"/>
             <i class="search-icon font-white fa fa-search"></i>
         </form>
     </div>

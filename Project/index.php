@@ -2,7 +2,18 @@
     require 'includes/db.php';
     session_start();
     
-    $active_page = "home";
+    // Search field
+    $search = $mysqli->escape_string($_POST['search']);
+    
+    if ($_SERVER['REQUEST_METHOD'] == "POST"){
+        $_GET['search'] = $search;
+        
+        // Redirect
+        header('location: index.php?search='.$_GET['search'].'');
+        exit;
+    } else {
+        
+    }
 ?>
 
 <!DOCTYPE html>
@@ -35,14 +46,34 @@
                     <div class="vertical-lg"></div>
                     <div class="row">
                         <div class="col-8">
-                            <?php 
-                                $query = $mysqli->query("SELECT * FROM code");
+                            <?php
+                                // Order by
+                                if ($_GET['sort'] === "old"){
+                                    // Oldest
+                                    $query = $mysqli->query("SELECT * FROM code ORDER BY id ASC");  
+                                } else if ($_GET['sort'] === "new"){
+                                    // Newest (Also default)
+                                    $query = $mysqli->query("SELECT * FROM code ORDER BY id DESC");    
+                                } else {
+                                    // Default
+                                    $query = $mysqli->query("SELECT * FROM code ORDER BY id DESC");
+                                }
                                 
+                                // Search field
+                                if ($_GET['search'] != ""){
+                                    $query = $mysqli->query("SELECT * FROM code WHERE name LIKE '%".$_GET['search']."%' || language = '".$_GET['search']."'");
+                                } else {
+                                    // No change
+                                }
+                                
+                                // Loop and display every row
                                 while ($row = $query->fetch_array()) {
                                     echo "<div class='post content-blackbox'>
+                                        <div class='vertical-sm'></div>
                                         <a class='post-title' href='/Project/code/post.php?id=".$row['id']."'><h4 class='font-header' style='margin-bottom: 0;'>".$row['name']."</h4></a>
                                         <span class='language font-grey_lightest font-content'>".$row['language']."</span>
                                         <a class='post-user' href='/Project/account/profile.php?id=".$row['codeid']."'><span class='font-subheader' style='margin-left: 20px;'>/u/".$row['author']."</span></a>
+                                        <div class='vertical-sm'></div>
                                     </div>
                                     <div class='vertical-sm'></div>";
                                 }
@@ -50,6 +81,7 @@
                         </div>
                         <?php include 'includes/search.php'; ?>
                     </div>
+                    <div class="vertical-lg"></div>
                 </div>
                 
                 <div class="account-nav col-1">
@@ -60,7 +92,7 @@
         <?php
             // Alert if login succeeds
             if (isset($_SESSION['message'])){?>
-                <div class="success-message">
+                <div class="<?php echo $_SESSION['message-type']; ?>">
                     <div class="message-content">
                         <?php 
                             echo $_SESSION['message']; 

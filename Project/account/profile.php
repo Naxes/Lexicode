@@ -37,9 +37,10 @@
                                 <div class="col-3">
                                     <div class="vertical-lg"></div>
                                     <div class="profile-img">
-                                        <?php 
+                                        <?php
                                             $query = $mysqli->query("SELECT * FROM users WHERE userid = '" .$_GET['id']."'");
                                             $user = $query->fetch_assoc();
+                                            // If profile picture is blank use default image, else use uploaded image
                                             if ($user['image'] === ""){
                                                 echo "<img src='/Project/images/default.png' alt='Default profile picture'/>";
                                             } else {
@@ -49,13 +50,15 @@
                                     </div>
                                     <div class="vertical-sm"></div>
                                     <div class="details">
-                                        <?php 
+                                        <?php
+                                            // If ID is logged in user, allow editing of details
                                             if ($_GET['id'] === $_SESSION['userid']){ ?>
                                                 <a href="/Project/account/edit/details.php?id=<?php echo $_SESSION['userid']; ?>"><i class="edit-details fa fa-pencil-square"></i></a>   
                                             <?php }
                                         ?>
                                         <h2 class="font-white font-header"><?php echo $user['username']; ?></h2>
                                         <?php 
+                                            // If bio is blank show default message, else show users bio
                                             if ($user['bio'] === ""){ ?>
                                                 <span class="font-grey_light font-content">[No Bio]</span></br>    
                                                 <div class="vertical-sm"></div>
@@ -70,18 +73,23 @@
                                 <div class="col-8">
                                     <div class="vertical-lg"></div>
                                     <h2 class="font-white font-header">Submissions</h2>
-                                    <?php 
+                                    <?php
+                                        // Show users submissions
                                         $query = $mysqli->query("SELECT * FROM code WHERE codeid = '".$_GET['id']."'");
                                         
+                                        // Loop and display all submissions
                                         while ($row = $query->fetch_array()) {
                                             echo "<div class='post content-blackbox'>
+                                                <div class='vertical-sm'></div>
                                                 <a class='post-title' href='/Project/code/post.php?id=".$row['id']."'><h4 class='font-header' style='margin-bottom: 0;'>".$row['name']."</h4></a>
                                                 <span class='language font-grey_lightest font-content'>".$row['language']."</span>";
+                                                // If self-submission, allow edit or delete
                                                 if ($_GET['id'] === $_SESSION['userid']){
-                                                    echo "<a class='edit-submission' href='#'><i class='fa fa-pencil-square'></i></a>
+                                                    echo "<a class='edit-submission' href='/Project/account/edit/submission.php?id=".$row['id']."'><i class='fa fa-pencil-square'></i></a>
                                                 <a class='delete-submission' href='/Project/account/edit/delete.php?id=".$row['id']."'><i class='fa fa-times-circle'></i></a>";
                                                 }
                                         echo    "<a class='post-user' href='/Project/account/profile.php?id=".$row['codeid']."'><span class='font-subheader' style='margin-left: 20px;'>/u/".$row['author']."</span></a>
+                                                <div class='vertical-sm'></div>
                                             </div>
                                             <div class='vertical-sm'></div>";
                                         }
@@ -99,7 +107,7 @@
             <?php
                 // Alert if details changed
                 if (isset($_SESSION['message'])){?>
-                    <div class="success-message">
+                    <div class="<?php echo $_SESSION['message-type']; ?>">
                         <div class="message-content">
                             <?php 
                                 echo $_SESSION['message']; 

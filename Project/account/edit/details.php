@@ -22,6 +22,7 @@
             $query = $mysqli->query("SELECT * FROM users WHERE (username = '$username' OR email = '$email') AND userid <> '" . $_SESSION['userid'] . "'");
 
             if($query->num_rows > 0){
+                $_SESSION['message-type'] = "error-message";
                 $_SESSION['message'] = "Username/Email taken";
             }else{ // Update details
                 $update = $mysqli->query("UPDATE users SET username = '$username', bio = '$bio', email = '$email', password = '$password2' WHERE userid = '" . $_SESSION['userid'] . "'");
@@ -30,6 +31,7 @@
                 $_SESSION['email'] = $email;
                 $_SESSION['password'] = $password1;
                 
+                $_SESSION['message-type'] = "success-message";
                 $_SESSION['message'] = "Details updated";
                 // Redirect to profile
                 header("location: ../profile.php?id=".$_GET['id']."");
@@ -44,6 +46,7 @@
             move_uploaded_file($_FILES['profile-pic'] ['tmp_name'], "../../images/".$_FILES['profile-pic'] ['name']);
             $query = $mysqli->query("UPDATE users SET image = '".$_FILES['profile-pic'] ['name']."' WHERE userid = '".$_SESSION['userid']."'");
             
+            $_SESSION['message-type'] = "success-message";
             $_SESSION['message'] = "Avatar updated";
             header("location: ../profile.php?id=".$_GET['id']."");
             exit;
@@ -143,8 +146,6 @@
                                     <h2 class="font-white font-header text-center">Avatar</h2>
                                     <div class="profile-img">
                                         <?php 
-                                            $query = $mysqli->query("SELECT * FROM users WHERE userid = '" . $_SESSION['userid'] ."'");
-                                            $user = $query->fetch_assoc();
                                             if ($user['image'] === ""){
                                                 echo "<img width='100%' height='100%' src='/Project/images/default.png' alt='Default profile picture'/>";
                                             } else {
