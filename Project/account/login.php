@@ -24,6 +24,8 @@
                     $_SESSION['email'] = $user['email'];
                     $_SESSION['username'] = $user['username'];
                     $_SESSION['userid'] = $user['userid'];
+                    $_SESSION['sponsored'] = $user['partner_rights'];
+                    $_SESSION['admin'] = $user['admin_rights'];
                     
                     //Unhashed password (for details.php)
                     $_SESSION['password'] = $password;

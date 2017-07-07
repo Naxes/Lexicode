@@ -21,10 +21,12 @@
             // Check username exists outside of current login
             $query = $mysqli->query("SELECT * FROM users WHERE (username = '$username' OR email = '$email') AND userid <> '" . $_SESSION['userid'] . "'");
 
+            // If user details are in use, don't allow change
             if($query->num_rows > 0){
                 $_SESSION['message-type'] = "error-message";
                 $_SESSION['message'] = "Username/Email taken";
-            }else{ // Update details
+            // Else update details
+            }else{ 
                 $update = $mysqli->query("UPDATE users SET username = '$username', bio = '$bio', email = '$email', password = '$password2' WHERE userid = '" . $_SESSION['userid'] . "'");
 
                 $_SESSION['username'] = $username;

@@ -14,9 +14,17 @@
             $language = $_POST['language'];
             $author = $_SESSION['username'];
             $codeid = $_SESSION['userid'];
+            $sponsored = $_SESSION['sponsored'];
             
-            $sql = "INSERT INTO code (name, description, code, language, author, codeid)
-                    VALUES ('$name', '$description', '$code', '$language', '$author', '$codeid')";
+            if ($_SESSION['sponsored'] === "1") {
+                $affiliate = $_POST['affiliate'];
+                
+                $sql = "INSERT INTO code (name, description, code, language, author, sponsored, affiliate_link, codeid)
+                    VALUES ('$name', '$description', '$code', '$language', '$author', '$sponsored', '$affiliate', '$codeid')";    
+            } else {
+                $sql = "INSERT INTO code (name, description, code, language, author, sponsored, codeid)
+                    VALUES ('$name', '$description', '$code', '$language', '$author', '$sponsored', '$codeid')";
+            }
             
             if ($mysqli->query($sql)){
                 // Success message
@@ -52,7 +60,7 @@
         <link rel="stylesheet" href="../css/output.css"/>
     </head>
     <body>
-        <?php if ($_SESSION['loggedin'] === true){ // Show upload page
+        <?php if ($_SESSION['loggedin'] === true && $_SESSION['admin'] === "0"){ // Show upload page
             ?>
             <div class="container-fluid">
                     <div class="row">
@@ -61,7 +69,7 @@
                         </div>
                         
                         <div class="col-10 offset-1">
-                            <!-- Login form -->
+                            <!-- Upload form -->
                             <div class="container">
                                 <div class="row">
                                     <div class="col-4"></div>
@@ -103,6 +111,20 @@
                                                     </div>
                                                 </div>
                                                 
+                                                <?php
+                                                    if ($_SESSION['sponsored'] === "1"){ ?>
+                                                        <!-- Affiliate link -->
+                                                        <div class="container">
+                                                            <div class="form-group row">
+                                                                <div class="col-12">
+                                                                    <label class="font-white" for="affiliate">Affiliate link:</label>
+                                                                    <input type="text" class="form-control" name="affiliate" autocomplete="off" required />
+                                                                </div>
+                                                            </div>
+                                                        </div>   
+                                                    <?php }
+                                                ?>
+                                                
                                                 <!-- Language -->
                                                 <div class="container">
                                                     <div class="row">
@@ -112,6 +134,7 @@
                                                                 <option value="">Please select</option>
                                                                 <option>HTML</option>
                                                                 <option>CSS</option>
+                                                                <option>SCSS</option>
                                                                 <option>Javascript</option>
                                                                 <option>PHP</option>
                                                                 <option>SQL</option>

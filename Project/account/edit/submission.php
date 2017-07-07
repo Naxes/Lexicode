@@ -8,16 +8,22 @@
     $query = $mysqli->query("SELECT * FROM code WHERE id = '".$_GET['id']."' && codeid = '".$_SESSION['userid']."'");
     $row = $query->fetch_array();
     
-    $name = $mysqli->escape_string($_POST['name']);
     $description = $mysqli->escape_string($_POST['description']);
     $code = $mysqli->escape_string($_POST['code']);
     $language = $_POST['language'];
+    $affiliate = $_POST['affiliate'];
     
     if ($_SERVER['REQUEST_METHOD'] == "POST"){
         if (isset($_POST['update'])){
             if ($query->num_rows > 0){
-                // Update submission
-                $update = $mysqli->query("UPDATE code SET name = '$name', description = '$description', code = '$code', language = '$language' WHERE id = '".$_GET['id']."'");
+                // If sponsored user, update affiliate link
+                if ($_SESSION['sponsored'] === "1"){
+                    // Update submission
+                    $update = $mysqli->query("UPDATE code SET description = '$description', code = '$code', affiliate_link = '$affiliate', language = '$language' WHERE id = '".$_GET['id']."'");    
+                } else {
+                    // Update submission
+                    $update = $mysqli->query("UPDATE code SET description = '$description', code = '$code', language = '$language' WHERE id = '".$_GET['id']."'");    
+                }
                 
                 // Success message
                 $_SESSION['message-type'] = "success-message";
@@ -68,21 +74,12 @@
                                     <div class="col-4">
                                         <div class="vertical-md"></div>
                                         <h1 class="font-white text-center"><i class="fa fa-pencil"></i></h1>
+                                        <h4 class="font-white font-subheader text-center"><?php echo $row['name']; ?></h4>
                                         <h2 class="font-white font-content text-center">Edit Submission</h2>
                                         <div class="vertical-md"></div>
                                         
                                         <div class="content-blackbox">
                                             <form method="post" autocomplete="off">
-                                                <!-- Code name -->
-                                                <div class="container">
-                                                    <div class="form-group row">
-                                                        <div class="col-12">
-                                                            <label class="font-white" for="name">Name:</label>
-                                                            <input type="text" class="form-control" name="name" autocomplete="off" value="<?php echo $row['name']; ?>" required />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
                                                 <!-- Code description -->
                                                 <div class="container">
                                                     <div class="form-group row">
@@ -103,6 +100,20 @@
                                                     </div>
                                                 </div>
                                                 
+                                                <?php
+                                                    if ($_SESSION['sponsored'] === "1"){ ?>
+                                                        <!-- Affiliate link -->
+                                                        <div class="container">
+                                                            <div class="form-group row">
+                                                                <div class="col-12">
+                                                                    <label class="font-white" for="affiliate">Affiliate link:</label>
+                                                                    <input type="text" class="form-control" name="affiliate" value="<?php echo $row['affiliate_link']?>" autocomplete="off" required />
+                                                                </div>
+                                                            </div>
+                                                        </div>   
+                                                    <?php }
+                                                ?>
+                                                
                                                 <!-- Language -->
                                                 <div class="container">
                                                     <div class="row">
@@ -112,8 +123,10 @@
                                                                 <option value="">Please select</option>
                                                                 <option <?php if ($row['language'] === "HTML") { echo "selected='selected'"; } ?>>HTML</option>
                                                                 <option <?php if ($row['language'] === "CSS") { echo "selected='selected'"; } ?>>CSS</option>
+                                                                <option <?php if ($row['language'] === "SCSS") { echo "selected='selected'"; } ?>>SCSS</option>
                                                                 <option <?php if ($row['language'] === "Javascript") { echo "selected='selected'"; } ?>>Javascript</option>
                                                                 <option <?php if ($row['language'] === "PHP") { echo "selected='selected'"; } ?>>PHP</option>
+                                                                <option <?php if ($row['language'] === "SQL") { echo "selected='selected'"; } ?>>SQL</option>
                                                                 <option <?php if ($row['language'] === "Git") { echo "selected='selected'"; } ?>>Git</option>
                                                             </select>
                                                         </div>

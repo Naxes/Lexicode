@@ -25,12 +25,19 @@
         <a href="/Project/account/profile.php?id=<?php echo $_SESSION['userid']; ?>" class="<?php if ($active_page == "profile" && $_GET['id'] == $_SESSION['userid']) {echo "active"; }?>">
             <i class="fa fa-user"></i>
         </a>
-        <a href="/Project/code/upload.php" class="<?php if ($active_page == "upload") {echo "active"; }?>">
-            <i class="fa fa-upload"></i>
-        </a>
+        <?php if ($user['admin_rights'] === "0"){ ?>
+            <a href="/Project/code/upload.php" class="<?php if ($active_page == "upload") {echo "active"; }?>">
+                <i class="fa fa-upload"></i>
+            </a>    
+        <?php } ?>
         <a href="/Project/account/edit/details.php?id=<?php echo $_SESSION['userid']; ?>" class="<?php if ($active_page == "details") {echo "active"; }?>">
             <i class="fa fa-cog"></i>
         </a>
+        <?php if ($user['admin_rights'] === "1"){ ?>
+            <a href="/Project/admin/control-panel.php" class="<?php if ($active_page == "admin") {echo "active"; }?>">
+                <i class="fa fa-shield"></i>
+            </a>
+        <?php } ?>
         <a href="/Project/account/logout.php">
             <i class="fa fa-sign-out"></i>
         </a>

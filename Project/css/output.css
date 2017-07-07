@@ -215,6 +215,9 @@ a, a:hover {
   border-bottom: 1px dotted #FFFFFF;
   margin: 10px; }
 
+.divider-line {
+  border-bottom: 2px solid #4D5464; }
+
 /*
   __  __                                     
  |  \/  |                                    
@@ -234,7 +237,7 @@ a, a:hover {
   font-family: "Open Sans", sans-serif;
   animation: message-fade 2s linear forwards;
   animation-delay: 1.5s;
-  position: absolute;
+  position: fixed;
   right: 0;
   bottom: 0;
   margin: 0 10px 10px 0; }
@@ -250,7 +253,7 @@ a, a:hover {
   background-color: #E74C3C; }
 
 .warning-message {
-  background-color: #FFD34E; }
+  background-color: #FFCC5C; }
 
 @keyframes message-fade {
   from {
@@ -288,42 +291,89 @@ a, a:hover {
   .upload-link:hover a {
     text-decoration: none; }
 
-.user-list, .admin-list {
+.user-list, .partner-list, .admin-list {
   height: 250px; }
-  .user-list .content-blackbox, .admin-list .content-blackbox {
+  .user-list .content-blackbox, .partner-list .content-blackbox, .admin-list .content-blackbox, .user-list .post, .partner-list .post, .admin-list .post, .user-list .post-sponsor, .partner-list .post-sponsor, .admin-list .post-sponsor {
     width: 100%;
     height: 100%; }
-    .user-list .content-blackbox a:hover, .admin-list .content-blackbox a:hover, .user-list .content-blackbox a:focus, .admin-list .content-blackbox a:focus {
+    .user-list .content-blackbox a:hover, .partner-list .content-blackbox a:hover, .admin-list .content-blackbox a:hover, .user-list .post a:hover, .partner-list .post a:hover, .admin-list .post a:hover, .user-list .post-sponsor a:hover, .partner-list .post-sponsor a:hover, .admin-list .post-sponsor a:hover, .user-list .content-blackbox a:focus, .partner-list .content-blackbox a:focus, .admin-list .content-blackbox a:focus, .user-list .post a:focus, .partner-list .post a:focus, .admin-list .post a:focus, .user-list .post-sponsor a:focus, .partner-list .post-sponsor a:focus, .admin-list .post-sponsor a:focus {
       text-decoration: none; }
-      .user-list .content-blackbox a:hover img, .admin-list .content-blackbox a:hover img, .user-list .content-blackbox a:focus img, .admin-list .content-blackbox a:focus img {
-        border: 3px solid #1997C6; }
-      .user-list .content-blackbox a:hover span, .admin-list .content-blackbox a:hover span, .user-list .content-blackbox a:focus span, .admin-list .content-blackbox a:focus span {
+      .user-list .content-blackbox a:hover img, .partner-list .content-blackbox a:hover img, .admin-list .content-blackbox a:hover img, .user-list .post a:hover img, .partner-list .post a:hover img, .admin-list .post a:hover img, .user-list .post-sponsor a:hover img, .partner-list .post-sponsor a:hover img, .admin-list .post-sponsor a:hover img, .user-list .content-blackbox a:focus img, .partner-list .content-blackbox a:focus img, .admin-list .content-blackbox a:focus img, .user-list .post a:focus img, .partner-list .post a:focus img, .admin-list .post a:focus img, .user-list .post-sponsor a:focus img, .partner-list .post-sponsor a:focus img, .admin-list .post-sponsor a:focus img {
+        border: 4px solid #1997C6; }
+      .user-list .content-blackbox a:hover span, .partner-list .content-blackbox a:hover span, .admin-list .content-blackbox a:hover span, .user-list .post a:hover span, .partner-list .post a:hover span, .admin-list .post a:hover span, .user-list .post-sponsor a:hover span, .partner-list .post-sponsor a:hover span, .admin-list .post-sponsor a:hover span, .user-list .content-blackbox a:focus span, .partner-list .content-blackbox a:focus span, .admin-list .content-blackbox a:focus span, .user-list .post a:focus span, .partner-list .post a:focus span, .admin-list .post a:focus span, .user-list .post-sponsor a:focus span, .partner-list .post-sponsor a:focus span, .admin-list .post-sponsor a:focus span {
         color: #1997C6; }
-    .user-list .content-blackbox img, .admin-list .content-blackbox img {
+    .user-list .content-blackbox img, .partner-list .content-blackbox img, .admin-list .content-blackbox img, .user-list .post img, .partner-list .post img, .admin-list .post img, .user-list .post-sponsor img, .partner-list .post-sponsor img, .admin-list .post-sponsor img {
       width: 50px;
       height: 50px;
-      border: 3px solid #FFFFFF;
-      border-radius: 40px; }
+      border: 4px solid #FFFFFF;
+      border-radius: 50%; }
+
+.partner-list {
+  height: auto; }
+  .partner-list .content-blackbox img, .partner-list .post img, .partner-list .post-sponsor img {
+    border: 4px solid #E74C3C; }
+  .partner-list .content-blackbox span, .partner-list .post span, .partner-list .post-sponsor span {
+    color: #E74C3C; }
+  .partner-list .content-blackbox i, .partner-list .post i, .partner-list .post-sponsor i {
+    color: #E74C3C;
+    position: absolute;
+    right: 25px;
+    bottom: 18px; }
+  .partner-list .content-blackbox a:hover img, .partner-list .post a:hover img, .partner-list .post-sponsor a:hover img, .partner-list .content-blackbox a:focus img, .partner-list .post a:focus img, .partner-list .post-sponsor a:focus img {
+    border: 4px solid #FFCC5C; }
+  .partner-list .content-blackbox a:hover span, .partner-list .post a:hover span, .partner-list .post-sponsor a:hover span, .partner-list .content-blackbox a:focus span, .partner-list .post a:focus span, .partner-list .post-sponsor a:focus span {
+    color: #FFCC5C; }
+  .partner-list .content-blackbox a:hover i, .partner-list .post a:hover i, .partner-list .post-sponsor a:hover i, .partner-list .content-blackbox a:focus i, .partner-list .post a:focus i, .partner-list .post-sponsor a:focus i {
+    color: #FFCC5C; }
 
 .admin-list {
   height: auto; }
+  .admin-list .content-blackbox img, .admin-list .post img, .admin-list .post-sponsor img {
+    border: 4px solid #00535E; }
+  .admin-list .content-blackbox span, .admin-list .post span, .admin-list .post-sponsor span {
+    color: #00535E; }
+  .admin-list .content-blackbox a:hover img, .admin-list .post a:hover img, .admin-list .post-sponsor a:hover img, .admin-list .content-blackbox a:focus img, .admin-list .post a:focus img, .admin-list .post-sponsor a:focus img {
+    border: 4px solid #003840; }
+  .admin-list .content-blackbox a:hover span, .admin-list .post a:hover span, .admin-list .post-sponsor a:hover span, .admin-list .content-blackbox a:focus span, .admin-list .post a:focus span, .admin-list .post-sponsor a:focus span {
+    color: #003840; }
 
-.post {
+.post, .post-sponsor {
   position: relative; }
-  .post .post-title, .post .post-user {
+  .post .post-title, .post-sponsor .post-title, .post .post-user, .post-sponsor .post-user {
     color: #4D5464;
     text-decoration: none; }
-  .post .post-title:hover, .post .post-user:hover {
+  .post .post-title:hover, .post-sponsor .post-title:hover, .post .post-user:hover, .post-sponsor .post-user:hover {
     color: #FFFFFF; }
-  .post .language {
+  .post .language, .post-sponsor .language {
     position: absolute;
     top: 0;
     right: 0;
     padding: 10px; }
-  .post .post-user {
+  .post .post-user, .post-sponsor .post-user {
     color: #CDD0D8; }
-  .post .post-user:hover {
+  .post .post-user:hover, .post-sponsor .post-user:hover {
     color: #FFFFFF; }
+
+.post-sponsor {
+  background: #E74C3C !important; }
+  .post-sponsor .post-title, .post-sponsor .post-user {
+    color: #FFFFFF; }
+  .post-sponsor .post-user {
+    color: #CDD0D8; }
+  .post-sponsor .sponsor {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 10px;
+    border-radius: 10px;
+    color: #FFCC5C; }
+
+.pagination .page-item .page-link {
+  color: #FFFFFF;
+  border: 1px solid #374140;
+  background-color: #252830; }
+.pagination .page-item .page-link:hover {
+  background-color: #374140; }
 
 /*
            _                 _     _____                 
@@ -372,7 +422,7 @@ div .info-box.third {
   to {
     opacity: 1;
     top: 0; } }
-.content-blackbox {
+.content-blackbox, .post, .post-sponsor {
   display: block;
   position: relative;
   overflow-y: auto;
@@ -380,9 +430,9 @@ div .info-box.third {
   padding: 10px;
   background-color: #252830;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); }
-  .content-blackbox form {
+  .content-blackbox form, .post form, .post-sponsor form {
     width: 100%; }
-    .content-blackbox form input {
+    .content-blackbox form input, .post form input, .post-sponsor form input {
       width: 100%; }
 
 .console-window {
@@ -407,7 +457,7 @@ div .info-box.third {
       left: 30px;
       top: 10px;
       padding: 5px;
-      color: #FFD34E; }
+      color: #FFCC5C; }
     .console-window .top-bar span:nth-child(3) {
       left: 40px;
       top: 10px;
@@ -444,35 +494,42 @@ div .info-box.third {
     height: 100%;
     border-radius: 20px; }
 
-.details {
+.details, .details-partner {
   position: relative; }
-  .details .edit-details {
+  .details .edit-details, .details-partner .edit-details {
     color: #4D5464;
     font-size: 25px;
     opacity: 0;
     position: absolute;
     right: 0; }
 
-.details:hover .edit-details {
+.details:hover .edit-details, .details-partner:hover .edit-details {
   opacity: 1; }
-.details:hover .edit-details:hover {
+.details:hover .edit-details:hover, .details-partner:hover .edit-details:hover {
   color: #FFFFFF; }
 
-.post .edit-submission, .post .delete-submission {
+.details-partner .content-blackbox, .details-partner .post, .details-partner .post-sponsor {
+  background: #E74C3C; }
+.details-partner h2 {
+  color: #E74C3C; }
+.details-partner span {
+  color: #4D5464; }
+
+.post .edit-submission, .post-sponsor .edit-submission, .post .delete-submission, .post-sponsor .delete-submission {
   color: #4D5464;
   font-size: 25px;
   opacity: 0;
   position: absolute;
   top: 25px;
   right: 30px; }
-.post .edit-submission:hover, .post .delete-submission:hover {
+.post .edit-submission:hover, .post-sponsor .edit-submission:hover, .post .delete-submission:hover, .post-sponsor .delete-submission:hover {
   color: #FFFFFF; }
-.post .delete-submission {
+.post .delete-submission, .post-sponsor .delete-submission {
   right: 5px; }
-.post .delete-submission:hover {
+.post .delete-submission:hover, .post-sponsor .delete-submission:hover {
   color: #E74C3C; }
 
-.post:hover .edit-submission, .post:hover .delete-submission {
+.post:hover .edit-submission, .post-sponsor:hover .edit-submission, .post:hover .delete-submission, .post-sponsor:hover .delete-submission {
   opacity: 1; }
 
 /*
@@ -510,6 +567,29 @@ div .info-box.third {
   .post-content p {
     padding: 10px;
     margin-bottom: 0; }
+
+/*
+   _____            _             _   _____                 _ 
+  / ____|          | |           | | |  __ \               | |
+ | |     ___  _ __ | |_ _ __ ___ | | | |__) |_ _ _ __   ___| |
+ | |    / _ \| '_ \| __| '__/ _ \| | |  ___/ _` | '_ \ / _ \ |
+ | |___| (_) | | | | |_| | | (_) | | | |  | (_| | | | |  __/ |
+  \_____\___/|_| |_|\__|_|  \___/|_| |_|   \__,_|_| |_|\___|_|
+                                                              
+                                                              
+*/
+.table {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); }
+  .table th {
+    border: 0px; }
+    .table th a {
+      color: #4D5464;
+      font-size: 20px; }
+    .table th a:hover {
+      color: #FFFFFF; }
+
+.table-inverse {
+  background-color: #252830; }
 
 /*
   ____              _       _                   
