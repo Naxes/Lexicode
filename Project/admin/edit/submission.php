@@ -1,44 +1,42 @@
 <?php
-    require '../includes/db.php';
+    require '../../includes/db.php';
     session_start();
     
-    $active_page = "upload";
+    $active_page = "submission";
     
-    // Upload
+    // Edit Submission
+    $query = $mysqli->query("SELECT * FROM code WHERE id = '".$_GET['id']."'");
+    $row = $query->fetch_array();
+    
+    $name = $mysqli->escape_string($_POST['name']);
+    $description = $mysqli->escape_string($_POST['description']);
+    $code = $mysqli->escape_string($_POST['code']);
+    $language = $_POST['language'];
+    $affiliate = $_POST['affiliate'];
+    
     if ($_SERVER['REQUEST_METHOD'] == "POST"){
-        if (isset($_POST['upload'])){
-            
-            $name = $mysqli->escape_string($_POST['name']);
-            $description = $mysqli->escape_string($_POST['description']);
-            $code = $mysqli->escape_string($_POST['code']);
-            $language = $_POST['language'];
-            $author = $_SESSION['username'];
-            $codeid = $_SESSION['userid'];
-            $sponsored = $_SESSION['sponsored'];
-            $votes = 0;
-            
-            if ($_SESSION['sponsored'] === "1") {
-                $affiliate = $_POST['affiliate'];
+        if (isset($_POST['update'])){
+            if ($query->num_rows > 0){
+                // If sponsored user, update affiliate link
+                if ($_SESSION['sponsored'] === "1"){
+                    // Update submission
+                    $update = $mysqli->query("UPDATE code SET name = '$name', description = '$description', code = '$code', affiliate_link = '$affiliate', language = '$language' WHERE id = '".$_GET['id']."'");    
+                } else {
+                    // Update submission
+                    $update = $mysqli->query("UPDATE code SET name = '$name', description = '$description', code = '$code', language = '$language' WHERE id = '".$_GET['id']."'");    
+                }
                 
-                $sql = "INSERT INTO code (name, description, code, language, author, sponsored, affiliate_link, votes, codeid)
-                    VALUES ('$name', '$description', '$code', '$language', '$author', '$sponsored', '$affiliate', '$votes', '$codeid')";    
-            } else {
-                $sql = "INSERT INTO code (name, description, code, language, author, sponsored, votes, codeid)
-                    VALUES ('$name', '$description', '$code', '$language', '$author', '$sponsored', '$votes', '$codeid')";
-            }
-            
-            if ($mysqli->query($sql)){
                 // Success message
                 $_SESSION['message-type'] = "success-message";
-                $_SESSION['message'] = "Code submitted";
-                header('location: ../index.php');
-                exit;
+                $_SESSION['message'] = "Submission updated";
+                
+                // Redirect to control panel
+                header("location: ../control-panel.php");
+                exit;    
             } else {
-                // Error message
-                $_SESSION['message-type'] = "error-message";
-                $_SESSION['message'] = "Could not upload";
-                header('location: ../index.php');
-                exit;
+                // Redirect to control panel
+                header("location: ../control-panel.php");
+                exit;  
             }
         }
     }
@@ -46,7 +44,7 @@
 
 <!DOCTYPE html>
     <head>
-        <title>Upload</title>
+        <title>Profile | Edit Submission</title>
         
         <!-- Bootstrap -->
         <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.css"/>
@@ -58,26 +56,27 @@
         <link href="https://fonts.googleapis.com/css?family=Miriam+Libre|Source+Sans+Pro:700|Open+Sans:300" rel="stylesheet">
         
         <!-- Style -->
-        <link rel="stylesheet" href="../css/output.css"/>
+        <link rel="stylesheet" href="../../css/output.css"/>
     </head>
     <body>
-        <?php if ($_SESSION['loggedin'] === true && $_SESSION['admin'] === "0"){ // Show upload page
+        <?php if ($_SESSION['admin'] === "1"){
             ?>
             <div class="container-fluid">
                     <div class="row">
                         <div class="content-nav col-1">
-                            <?php include '../includes/content-nav.php'?>
+                            <?php include '../../includes/content-nav.php'?>
                         </div>
                         
                         <div class="col-10 offset-1">
-                            <!-- Upload form -->
+                            <!-- Login form -->
                             <div class="container">
                                 <div class="row">
                                     <div class="col-4"></div>
                                     <div class="col-4">
                                         <div class="vertical-md"></div>
-                                        <h1 class="font-white text-center"><i class="fa fa-upload"></i></h1>
-                                        <h2 class="font-white font-content text-center">Upload a snippet</h2>
+                                        <h1 class="font-white text-center"><i class="fa fa-pencil"></i></h1>
+                                        <h4 class="font-white font-subheader text-center"><?php echo $row['name']; ?></h4>
+                                        <h2 class="font-white font-content text-center">Edit Submission</h2>
                                         <div class="vertical-md"></div>
                                         
                                         <div class="content-blackbox">
@@ -87,7 +86,7 @@
                                                     <div class="form-group row">
                                                         <div class="col-12">
                                                             <label class="font-white" for="name">Name:</label>
-                                                            <input type="text" class="form-control" name="name" autocomplete="off" required />
+                                                            <input type="text" class="form-control" name="name" autocomplete="off" value ="<?php echo $row['name']; ?>" required />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -97,7 +96,7 @@
                                                     <div class="form-group row">
                                                         <div class="col-12">
                                                             <label class="font-white" for="description">Description:</label>
-                                                            <textarea type="text" class="form-control" name="description" autocomplete="off" style="resize: none;" required></textarea>
+                                                            <textarea type="text" class="form-control" name="description" autocomplete="off" style="resize: none;" required><?php echo $row['description']; ?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -107,19 +106,19 @@
                                                     <div class="form-group row">
                                                         <div class="col-12">
                                                             <label class="font-white" for="code">Code:</label>
-                                                            <textarea type="text" id="code" class="form-control" name="code" autocomplete="off" style="white-space: nowrap;" required></textarea>
+                                                            <textarea type="text" id="code" class="form-control" name="code" autocomplete="off" style="white-space: nowrap;" required><?php echo $row['code']; ?></textarea>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 
                                                 <?php
-                                                    if ($_SESSION['sponsored'] === "1"){ ?>
+                                                    if ($row['sponsored'] === "1"){ ?>
                                                         <!-- Affiliate link -->
                                                         <div class="container">
                                                             <div class="form-group row">
                                                                 <div class="col-12">
                                                                     <label class="font-white" for="affiliate">Affiliate link:</label>
-                                                                    <input type="text" class="form-control" name="affiliate" autocomplete="off" required />
+                                                                    <input type="text" class="form-control" name="affiliate" value="<?php echo $row['affiliate_link']?>" autocomplete="off" required />
                                                                 </div>
                                                             </div>
                                                         </div>   
@@ -133,13 +132,13 @@
                                                             <label class="font-white" for="language">Language:</label>
                                                             <select class="form-control" name="language" required>
                                                                 <option value="">Please select</option>
-                                                                <option>HTML</option>
-                                                                <option>CSS</option>
-                                                                <option>SCSS</option>
-                                                                <option>Javascript</option>
-                                                                <option>PHP</option>
-                                                                <option>SQL</option>
-                                                                <option>Git</option>
+                                                                <option <?php if ($row['language'] === "HTML") { echo "selected='selected'"; } ?>>HTML</option>
+                                                                <option <?php if ($row['language'] === "CSS") { echo "selected='selected'"; } ?>>CSS</option>
+                                                                <option <?php if ($row['language'] === "SCSS") { echo "selected='selected'"; } ?>>SCSS</option>
+                                                                <option <?php if ($row['language'] === "Javascript") { echo "selected='selected'"; } ?>>Javascript</option>
+                                                                <option <?php if ($row['language'] === "PHP") { echo "selected='selected'"; } ?>>PHP</option>
+                                                                <option <?php if ($row['language'] === "SQL") { echo "selected='selected'"; } ?>>SQL</option>
+                                                                <option <?php if ($row['language'] === "Git") { echo "selected='selected'"; } ?>>Git</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -151,7 +150,7 @@
                                                 <div class="container">
                                                     <div class="row">
                                                         <div class="col-12">
-                                                            <input type="submit" class="btn btn-primary" name="upload" value="Upload"></input>
+                                                            <input type="submit" class="btn btn-primary" name="update" value="Update"></input>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -164,20 +163,12 @@
                             </div>
                         </div>
                         <div class="account-nav col-1">
-                            <?php include '../includes/account-nav.php'; ?>
+                            <?php include '../../includes/account-nav.php'; ?>
                         </div>
                     </div>
                 </div>
-        <?php }else if($_SESSION['admin'] === "1") { // Redirect to home page
-            $_SESSION['message-type'] = "error-message";
-            $_SESSION['message'] = "Admins cannot submit content";
-            header('location: ../index.php');
-            exit;
-        } else {
-            $_SESSION['message-type'] = "error-message";
-            $_SESSION['message'] = "You must be logged in to upload";
-            header('location: ../index.php');
-            exit;
+        <?php }else{ // Redirect to home page
+            header("location: ../control-panel.php");
         }?>
         <script src="/Project/js/main.js"></script>
     </body>

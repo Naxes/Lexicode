@@ -36,6 +36,7 @@
                     // Register user
                     if ($mysqli->query($sql)) {
                         $_SESSION['loggedin'] = true;
+                        $_SESSION['admin'] = "0";
                         
                         //Unhashed password (for details.php)
                         $_SESSION['password'] = $password1;

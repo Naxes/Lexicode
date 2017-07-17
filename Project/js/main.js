@@ -23,3 +23,4 @@ function enableTab(id) {
 }
 
 enableTab('code');
+

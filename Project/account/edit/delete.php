@@ -7,7 +7,7 @@
     if ($_SESSION['loggedin'] === true && $row['codeid'] === $_SESSION['userid']){
         // Delete query
         $delete = $mysqli->query("DELETE FROM code WHERE id = '".$_GET['id']."' && codeid = '".$_SESSION['userid']."'");
-        
+        $alter = $mysqli->query("ALTER TABLE code AUTO_INCREMENT = 1");
         // Success message
         $_SESSION['message-type'] = "success-message";
         $_SESSION['message'] = "Submission deleted";

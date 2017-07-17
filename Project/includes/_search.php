@@ -7,15 +7,18 @@
         </form>
     </div>
     <div class="vertical-sm"></div>
-    <div class="upload-link">
-        <a href="/Project/code/upload.php">
-            <!-- Submit code link -->
-            <div class="content-blackbox text-center">
-                <span class="font-white font-subheader">Submit new code</span>
+    <?php if($_SESSION['admin'] != "1"){ ?>
+            <div class="upload-link">
+                <a href="/Project/code/upload.php">
+                    <!-- Submit code link -->
+                    <div class="content-blackbox text-center">
+                        <span class="font-white font-subheader">Submit new code</span>
+                    </div>
+                </a>
             </div>
-        </a>
-    </div>
-    <div class="vertical-sm"></div>
+            <div class="vertical-sm"></div>  
+        <?php }
+    ?>
     <h6 class="font-white font-content">NEW USERS</h6>
     <div class="user-list">
         <div class="content-blackbox">

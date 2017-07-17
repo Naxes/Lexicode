@@ -58,7 +58,7 @@
         <link rel="stylesheet" href="../../css/output.css"/>
     </head>
     <body>
-        <?php if ($_SESSION['loggedin'] === true && $_GET['id'] != "" && $row['codeid'] === $_SESSION['userid']){
+        <?php if ($_SESSION['loggedin'] === true && !empty($_GET['id']) && $row['codeid'] === $_SESSION['userid']){
             ?>
             <div class="container-fluid">
                     <div class="row">

@@ -33,16 +33,12 @@
         
         <!-- Bootstrap -->
         <link rel="stylesheet" href="../../../node_modules/bootstrap/dist/css/bootstrap.css"/>
-        
         <!-- Prism syntax highlighter CSS -->
         <link rel="stylesheet" href="../../../node_modules/prismjs/themes/prism-okaidia.css"/>
-        
         <!-- Font Awesome (CDN) -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
-        
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Miriam+Libre|Source+Sans+Pro:700|Open+Sans:300" rel="stylesheet">
-        
         <!-- Style -->
         <link rel="stylesheet" href="../css/output.css"/>
     </head>
@@ -86,31 +82,54 @@
                                         while ($row = $query->fetch_array()) { ?>
                                             <div class='post content-blackbox'>
                                                 <div class='vertical-sm'></div>
-                                                <a class='post-title' href='/Project/code/post.php?id=<?php echo $row['id']; ?>'><h4 class='font-header' style='margin-bottom: 0;'><?php echo $row['name']; ?></h4></a>
-                                                <span class='language font-grey_lightest font-content'><?php echo $row['language']; ?></span>
-                                                <a class='post-user' href='/Project/account/profile.php?id=<?php echo $row['codeid']; ?>'><span class='font-subheader' style='margin-left: 20px;'>/u/<?php echo $row['author']; ?></span></a>
-                                                <div class='vertical-sm'></div>
-                                                <h7 class='font-white font-subheader' style='margin-left: 20px;'>Description</h7>
-                                                <div class='post-content'>
-                                                    <p class='font-white font-content'><?php echo $row['description']; ?></p>
-                                                </div>
-                                                <div class='vertical-sm'></div>
-                                                <h7 class='font-white font-subheader' style='margin-left: 20px;'>Code</h7>
-                                                <div class='post-content'>
-                                                    <pre><code class='language-<?php echo $row['language']; ?>'><?php echo htmlspecialchars($row['code']); ?>
-                                                    </code></pre>
+                                                <div class="row">
+                                                    <div class="col-1 text-center">
+                                                        <?php 
+                                                            $vote = $mysqli->query("SELECT * FROM code_votes WHERE fk_userid = '".$_SESSION['userid']."' && fk_postid = '".$row['id']."'");
+                                                            $vote_row = $vote->fetch_array();
+                                                            
+                                                        ?>
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <a href="/Project/code/vote.php?sort=<?php echo $_GET['sort']?>&page=<?php echo $_GET['page']?>&type=upvote&id=<?php echo $row['id']; ?>" class="<?php if($_SESSION['loggedin'] === true) { echo "ajaxLink"; }?>"><i class="<?php if($row['id'] === $vote_row['fk_postid'] && $vote_row['vote'] === "upvote") { echo "upvote"; } else { echo "font-white"; }?> fa fa-chevron-up"></i></a>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <span class='font-grey_lightest font-content'><?php echo $row['votes']; ?></span> 
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <a href="/Project/code/vote.php?sort=<?php echo $_GET['sort']?>&page=<?php echo $_GET['page']?>&type=downvote&id=<?php echo $row['id']; ?>" class="<?php if($_SESSION['loggedin'] === true) { echo "ajaxLink"; }?>"><i class="<?php if($row['id'] === $vote_row['fk_postid'] && $vote_row['vote'] === "downvote") { echo "downvote"; } else { echo "font-white"; }?> fa fa-chevron-down"></i></a>    
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-11">
+                                                        <a class='post-title' href='/Project/code/post.php?id=<?php echo $row['id']; ?>'><h4 class='font-header'><?php echo $row['name']; ?></h4></a>
+                                                        <span class='language font-grey_lightest font-content'><?php echo $row['language']; ?></span>
+                                                        <a class='post-user' href='/Project/account/profile.php?id=<?php echo $row['codeid']; ?>'><span class='font-subheader'>/u/<?php echo $row['author']; ?></span></a> 
+                                                        <div class='vertical-sm'></div>
+                                                        <h7 class='font-white font-subheader'>Description</h7>
+                                                        <div class='post-content'>
+                                                            <p class='font-white font-content'><?php echo $row['description']; ?></p>
+                                                        </div>
+                                                        <div class='vertical-sm'></div>
+                                                        <h7 class='font-white font-subheader'>Code</h7>
+                                                        <div class='post-content'>
+                                                            <pre><code class='language-<?php echo $row['language']; ?>'><?php echo htmlspecialchars($row['code']); ?>
+                                                            </code></pre>
+                                                        </div>
+                                                        <!-- Link to sponsored courses -->
+                                                        <?php
+                                                            if ($row['sponsored'] === "1"){ ?>
+                                                                <div class='vertical-sm'></div>
+                                                                <h7 class='font-white font-subheader'><?php echo $row['author']; ?>'s <?php echo $row['language']; ?> course</h7>
+                                                                <div class="post-content">
+                                                                    <p><a href="<?php echo $row['affiliate_link']; ?>" target="_blank"><?php echo $row['author']; ?> | <?php echo $row['language']; ?></a></p>
+                                                                </div>    
+                                                            <?php }
+                                                        ?>
+                                                    </div>
                                                 </div>
                                                 
-                                                <!-- Link to sponsored courses -->
-                                                <?php
-                                                    if ($row['sponsored'] === "1"){ ?>
-                                                        <div class='vertical-sm'></div>
-                                                        <h7 class='font-white font-subheader' style='margin-left: 20px;'><?php echo $row['author']; ?>'s <?php echo $row['language']; ?> course</h7>
-                                                        <div class="post-content">
-                                                            <p><a href="<?php echo $row['affiliate_link']; ?>" target="_blank"><?php echo $row['author']; ?> | <?php echo $row['language']; ?></a></p>
-                                                        </div>    
-                                                    <?php }
-                                                ?>
+                                                
                                             </div>
                                             <div class='vertical-sm'></div>
                                         <?php }
@@ -157,5 +176,18 @@
         <script src="../../../node_modules/prismjs/components/prism-git.js"></script>
         <!-- Normalize whitespace (PrismJS) -->
         <script src="../../../node_modules/prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.js"></script>
+        <!-- jQuery min -->
+        <script src="../../../node_modules/jquery/dist/jquery.min.js"></script>
+        <script>
+            $('.ajaxLink').click(function(e){
+                e.preventDefault(); // Prevents default link action
+                $.ajax({
+                    url: $(this).attr('href'),
+                    success: function(content){
+                        $("body").html(content);
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

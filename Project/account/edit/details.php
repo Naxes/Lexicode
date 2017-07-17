@@ -26,9 +26,12 @@
                 $_SESSION['message-type'] = "error-message";
                 $_SESSION['message'] = "Username/Email taken";
             // Else update details
-            }else{ 
-                $update = $mysqli->query("UPDATE users SET username = '$username', bio = '$bio', email = '$email', password = '$password2' WHERE userid = '" . $_SESSION['userid'] . "'");
-
+            }else{
+                $mysqli->begin_transaction();
+                    $mysqli->query("UPDATE users SET username = '$username', bio = '$bio', email = '$email', password = '$password2' WHERE userid = '" . $_SESSION['userid'] . "'");
+                    $mysqli->query("UPDATE code SET author = '$username' WHERE codeid = '".$_SESSION['userid']."'");
+                $mysqli->commit();
+                
                 $_SESSION['username'] = $username;
                 $_SESSION['email'] = $email;
                 $_SESSION['password'] = $password1;

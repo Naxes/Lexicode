@@ -216,7 +216,7 @@ a, a:hover {
   margin: 10px; }
 
 .divider-line {
-  border-bottom: 2px solid #4D5464; }
+  border-bottom: 1px solid #4D5464; }
 
 /*
   __  __                                     
@@ -333,12 +333,16 @@ a, a:hover {
   .admin-list .content-blackbox span, .admin-list .post span, .admin-list .post-sponsor span {
     color: #00535E; }
   .admin-list .content-blackbox a:hover img, .admin-list .post a:hover img, .admin-list .post-sponsor a:hover img, .admin-list .content-blackbox a:focus img, .admin-list .post a:focus img, .admin-list .post-sponsor a:focus img {
-    border: 4px solid #003840; }
+    border: 4px solid #1997C6; }
   .admin-list .content-blackbox a:hover span, .admin-list .post a:hover span, .admin-list .post-sponsor a:hover span, .admin-list .content-blackbox a:focus span, .admin-list .post a:focus span, .admin-list .post-sponsor a:focus span {
-    color: #003840; }
+    color: #1997C6; }
 
 .post, .post-sponsor {
   position: relative; }
+  .post .upvote, .post-sponsor .upvote {
+    color: #E74C3C; }
+  .post .downvote, .post-sponsor .downvote {
+    color: #1997C6; }
   .post .post-title, .post-sponsor .post-title, .post .post-user, .post-sponsor .post-user {
     color: #4D5464;
     text-decoration: none; }
@@ -350,19 +354,20 @@ a, a:hover {
     right: 0;
     padding: 10px; }
   .post .post-user, .post-sponsor .post-user {
-    color: #CDD0D8; }
+    color: #CDD0D8;
+    margin-left: 20px; }
   .post .post-user:hover, .post-sponsor .post-user:hover {
     color: #FFFFFF; }
 
 .post-sponsor {
-  background: #E74C3C !important; }
+  background: #1997C6 !important; }
   .post-sponsor .post-title, .post-sponsor .post-user {
     color: #FFFFFF; }
   .post-sponsor .post-user {
     color: #CDD0D8; }
   .post-sponsor .sponsor {
     position: absolute;
-    bottom: 0;
+    bottom: -20px;
     right: 0;
     padding: 10px;
     border-radius: 10px;
@@ -373,6 +378,8 @@ a, a:hover {
   border: 1px solid #374140;
   background-color: #252830; }
 .pagination .page-item .page-link:hover {
+  background-color: #374140; }
+.pagination .page-item .page-link:active {
   background-color: #374140; }
 
 /*
@@ -515,21 +522,23 @@ div .info-box.third {
 .details-partner span {
   color: #4D5464; }
 
-.post .edit-submission, .post-sponsor .edit-submission, .post .delete-submission, .post-sponsor .delete-submission {
+.post .edit-submission, .post-sponsor .edit-submission, .post .delete-submission, .post-sponsor .delete-submission, .post .check-ticket, .post-sponsor .check-ticket {
   color: #4D5464;
   font-size: 25px;
   opacity: 0;
   position: absolute;
   top: 25px;
   right: 30px; }
-.post .edit-submission:hover, .post-sponsor .edit-submission:hover, .post .delete-submission:hover, .post-sponsor .delete-submission:hover {
+.post .edit-submission:hover, .post-sponsor .edit-submission:hover, .post .delete-submission:hover, .post-sponsor .delete-submission:hover, .post .check-ticket:hover, .post-sponsor .check-ticket:hover {
   color: #FFFFFF; }
 .post .delete-submission, .post-sponsor .delete-submission {
   right: 5px; }
 .post .delete-submission:hover, .post-sponsor .delete-submission:hover {
   color: #E74C3C; }
+.post .check-ticket:hover, .post-sponsor .check-ticket:hover {
+  color: #00535E; }
 
-.post:hover .edit-submission, .post-sponsor:hover .edit-submission, .post:hover .delete-submission, .post-sponsor:hover .delete-submission {
+.post:hover .edit-submission, .post-sponsor:hover .edit-submission, .post:hover .delete-submission, .post-sponsor:hover .delete-submission, .post:hover .check-ticket, .post-sponsor:hover .check-ticket {
   opacity: 1; }
 
 /*
@@ -562,8 +571,7 @@ div .info-box.third {
 */
 .post-content {
   border: 1px solid #4D5464;
-  border-radius: 10px;
-  margin: 0 20px 0 20px; }
+  border-radius: 10px; }
   .post-content p {
     padding: 10px;
     margin-bottom: 0; }
@@ -579,17 +587,31 @@ div .info-box.third {
                                                               
 */
 .table {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); }
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0; }
   .table th {
     border: 0px; }
     .table th a {
       color: #4D5464;
       font-size: 20px; }
-    .table th a:hover {
+    .table th a:hover .edit-details:hover {
       color: #FFFFFF; }
+    .table th a:hover .delete-submission:hover {
+      color: #E74C3C; }
 
 .table-inverse {
   background-color: #252830; }
+
+.a_sort {
+  height: 100%; }
+  .a_sort i {
+    line-height: 50px; }
+
+.a_sort-active {
+  background: #1997C6; }
+
+.a_sort:hover {
+  background: #1997C6; }
 
 /*
   ____              _       _                   

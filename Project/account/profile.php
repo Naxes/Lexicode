@@ -7,9 +7,49 @@
     // Support ticket
     if ($_SERVER['REQUEST_METHOD'] == "POST"){
         if (isset($_POST['send'])){
-            
+            if ($_SESSION['loggedin'] === true){
+                $title = $mysqli->escape_string($_POST['title']);
+                $description = $mysqli->escape_string($_POST['description']);
+                $type = $_POST['type'];
+                
+                $query = $mysqli->query("INSERT INTO tickets (title, description, type, userid, adminid)
+                VALUES ('$title', '$description', '$type', '".$_SESSION['userid']."', '".$_GET['id']."')");
+                
+                if ($query){
+                    // Success message
+                    $_SESSION['message-type'] = "success-message";
+                    $_SESSION['message'] = "Support ticket sent";
+                    header('location: ../index.php');
+                    exit;
+                } else {
+                    // Error message
+                    $_SESSION['message-type'] = "error-message";
+                    $_SESSION['message'] = "Could not send support ticket";
+                    header('location: ../index.php');
+                    exit;   
+                }   
+            } else {
+                // Error message
+                $_SESSION['message-type'] = "error-message";
+                $_SESSION['message'] = "Log in to contact support";
+                header('location: ../index.php');
+                exit;    
+            }
         }
     }
+    
+    /* Pagination */
+    // Amount of items per page
+    $limit = 5;
+    // If a page is set in the URL, equal that page
+    if (isset($_GET['page'])){
+        $page = $_GET['page'];
+    // Else page is the first page
+    } else {
+        $page = 1;
+    }
+    
+    $start = ($page - 1) * $limit;
 ?>
 
 <!DOCTYPE html>
@@ -84,7 +124,7 @@
                                         <h2 class="font-white font-header">Submissions</h2>
                                         <?php
                                             // Show users submissions
-                                            $query = $mysqli->query("SELECT * FROM code WHERE codeid = '".$_GET['id']."'");
+                                            $query = $mysqli->query("SELECT * FROM code WHERE codeid = '".$_GET['id']."' LIMIT $start, $limit");
                                             
                                             if($query->num_rows <= 0){ ?>
                                                 <div class="content-blackbox">
@@ -108,14 +148,63 @@
                                                         <div class='vertical-sm'></div>
                                                     </div>
                                                     <div class='vertical-sm'></div>";
-                                                }    
-                                            }
+                                                }
+                                                ?>
+                                                <!-- Bottom Pagination -->
+                                                <div class="content-blackbox">
+                                                    <?php 
+                                                        // Pagination
+                                                        $count = $mysqli->query("SELECT COUNT(*) FROM code WHERE codeid = '".$_GET['id']."'");
+                                                        $row = $count->fetch_array();
+                                                        $total_records = $row[0];  
+                                                        $total_pages = ceil($total_records / $limit);
+                                                        if (isset($_GET['sort'])){
+                                                            $pagLink = "<div class='pagination'>";  
+                                                            for ($i=1; $i<=$total_pages; $i++) {  
+                                                                $pagLink .= "<li class='page-item'><a class='page-link' href='/Project/account/profile.php?id=".$_GET['id']."&page=".$i."'>".$i."</a></li>";  
+                                                            };  
+                                                            echo $pagLink . "</div>";     
+                                                        } else {
+                                                            $pagLink = "<div class='pagination'>";  
+                                                            for ($i=1; $i<=$total_pages; $i++) {
+                                                                $pagLink .= "<li class='page-item'><a class='page-link' href='/Project/account/profile.php?id=".$_GET['id']."&page=".$i."'>".$i."</a></li>";  
+                                                            };  
+                                                            echo $pagLink . "</div>";     
+                                                        }
+                                                    ?>
+                                                </div>
+                                            <?php }
                                         ?>
                                     <?php } else if ($_SESSION['admin'] === "1") { ?>
-                                        <h2 class="font-white font-header">Tickets</h2>  
+                                        <h2 class="font-white font-header">Tickets</h2> 
+                                        <?php 
+                                            // Show support tickets
+                                            $query = $mysqli->query("SELECT * FROM tickets WHERE adminid = '".$_GET['id']."'");
+                                            
+                                            if ($query->num_rows <= 0){ ?>
+                                                <div class="content-blackbox">
+                                                    <div class="vertical-sm"></div>
+                                                    <h4 class="font-white font-header text-center">No Tickets</h4>
+                                                    <div class="vertical-sm"></div>
+                                                </div>    
+                                            <?php } else {
+                                                while ($row = $query->fetch_array()){ ?>
+                                                    <div class="post content-blackbox">
+                                                        <div class="vertical-sm"></div>
+                                                        <a class='post-title' href='/Project/admin/ticket.php?id=<?php echo $row['id']; ?>'><h4 class='font-header' style='margin-bottom: 0;'><?php echo $row['title']; ?></h4></a>
+                                                        <span class='language font-grey_lightest font-content'><?php echo $row['type']; ?></span>
+                                                        <?php if ($_GET['id'] === $_SESSION['userid']){ ?>
+                                                            <a class='check-ticket' href='/Project/admin/ticket_complete.php?id=<?php echo $row['id']; ?>'><i class='fa fa-check'></i></a>
+                                                        <?php } ?>
+                                                        <div class="vertical-sm"></div>
+                                                    </div>
+                                                    <div class="vertical-sm"></div>
+                                                <?php }    
+                                            }
+                                        ?>
                                     <?php } else { ?>
                                         <h2 class="font-white font-header">Support</h2>
-                                        <h5 class="font-white font-subheader">Issue? Contact me!</h5>
+                                        <h5 class="font-white font-subheader">Issue? Log a support ticket!</h5>
                                         <div class="content-blackbox">
                                             <form method="post" autocomplete="off">
                                                 <!-- Issue title -->
