@@ -92,7 +92,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <h4 class="font-blue font-header">Elegant</h4>
-                                <p class="font-white text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                <p class="font-white text-justify">Our website provides modern code for a variety of languages. With constant upload moderation and testing we strive to ensure our code is functional and elegant</p>
                             </div>
                             <div class="col-md-6" style="position: relative;">
                                 <div class="console-window">
@@ -152,7 +152,7 @@
                             
                             <div class="col-md-6">
                                 <h4 class="font-blue font-header">Expressive</h4>
-                                <p class="font-white text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                <p class="font-white text-justify">Our code snippets are easy to understand as we strive to have descriptions accompanying each upload. This allows you to easily change any aspect of the code in order to fully express your own taste.</p>
                             </div>
                         </div>
                         
@@ -162,7 +162,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <h4 class="font-blue font-header">Beautiful</h4>
-                                <p class="font-white text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                <p class="font-white text-justify">With submissions from both users and sponsored businesses, Lexicode is the best place to find beautiful coding solutions for a plethora of languages.</p>
                             </div>
                             <div class="col-md-6" style="position: relative;">
                                 <div class="console-window">

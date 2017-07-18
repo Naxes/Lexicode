@@ -12,12 +12,17 @@
                     $mysqli->query("DELETE FROM users WHERE id = '".$_GET['id']."'");
                     $mysqli->query("ALTER TABLE users AUTO_INCREMENT = 1");
                 $mysqli->commit();
+                
+                $_SESSION['message-type'] = "success-message";
+                $_SESSION['message'] = "User removed";
                 break;
             case "submission":
                 $mysqli->begin_transaction();
                     $mysqli->query("DELETE FROM code WHERE id = '".$_GET['id']."'");
                     $mysqli->query("ALTER TABLE code AUTO_INCREMENT = 1");
                 $mysqli->commit();
+                $_SESSION['message-type'] = "success-message";
+                $_SESSION['message'] = "Submission removed";
                 break;
         }
         header('location: '. $_SERVER['HTTP_REFERER']);

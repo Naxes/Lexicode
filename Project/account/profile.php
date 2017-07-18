@@ -124,7 +124,7 @@
                                         <h2 class="font-white font-header">Submissions</h2>
                                         <?php
                                             // Show users submissions
-                                            $query = $mysqli->query("SELECT * FROM code WHERE codeid = '".$_GET['id']."' LIMIT $start, $limit");
+                                            $query = $mysqli->query("SELECT * FROM code WHERE codeid = '".$_GET['id']."' ORDER BY id DESC LIMIT $start, $limit");
                                             
                                             if($query->num_rows <= 0){ ?>
                                                 <div class="content-blackbox">

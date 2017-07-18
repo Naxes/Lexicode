@@ -232,11 +232,12 @@
                                                 default:
                                                     $count = $mysqli->query("SELECT COUNT(*) FROM users");
                                             }
+                                            
                                             $row = $count->fetch_array();
                                             $total_records = $row[0];  
                                             $total_pages = ceil($total_records / $limit);
                                             if (isset($_GET['list'])){
-                                                $pagLink = "<div class='pagination'>";  
+                                                $pagLink = "<div class='pagination'>";
                                                 for ($i=1; $i<=$total_pages; $i++) {
                                                     if(isset($_GET['search'])){
                                                         if(isset($_GET['sort'])){
